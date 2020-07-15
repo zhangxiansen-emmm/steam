@@ -21,7 +21,11 @@ class App extends Component {
     return (
       <Fragment>
         <Row type='flex' align='center' justify='center'>
-          <Col span={3} ><div className='oneday'>1</div></Col>
+          <Col span={3} ><div className='oneday'>143</div></Col>
+        </Row><Row type='flex' align='center' justify='center'>
+          <Col span={3} ><div className='oneday'>143</div></Col>
+        </Row><Row type='flex' align='center' justify='center'>
+          <Col span={3} ><div className='oneday'>143</div></Col>
         </Row>
       </Fragment>
     )
@@ -43,7 +47,7 @@ class Login extends Component {
   render() {
     return (
       <Fragment>
-        <div onClick={() => this.click()}>{this.state.count}</div>
+        <div className='oneday' onClick={() => this.click()}>{this.state.count}</div>
       </Fragment>
     )
   }
