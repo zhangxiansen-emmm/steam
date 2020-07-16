@@ -4,7 +4,7 @@ import { HashRouter, Route } from 'react-router-dom'
 import Ajax from '../Ajax'
 import { Row, Col } from 'antd'
 import 'antd/dist/antd.css'
-import './index.scss'
+import './assets/my_theme.less'
 class App extends Component {
   constructor() {
     super()

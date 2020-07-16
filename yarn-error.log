@@ -1,0 +1,65 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Tom\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add js-cookie -S
+
+PATH: 
+  C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\nodejs\;C:\Program Files\MacType;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\MySQL\MySQL Server 5.0\bin;C:\WINDOWS\SysWOW64\5097;C:\WINDOWS\SysWOW64;C:\Program Files\TortoiseGit\bin;C:\Program Files\TortoiseSVN\bin;C:\Users\Tom\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Tom\AppData\Local\Programs\Python\Python37-32\;C:\Ruby25-x64\bin;C:\Users\Tom\AppData\Local\Microsoft\WindowsApps;;H:\vscode\Microsoft VS Code Insiders\bin;C:\Users\Tom\AppData\Roaming\npm;E:\webstom\WebStorm 2019.3.4\bin;;E:\idea\Microsoft VS Code\bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  10.16.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'H:\react_demo\react_system\steam\node_modules\node-sass\vendor\win32-x64-64\binding.node'
+
+npm manifest: 
+  {
+    "name": "main",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "private": true,
+    "scripts": {
+      "build": "cross-env NODE_ENV=production  webpack --config=./webpack.config.js",
+      "dev": "cross-env NODE_ENV=development webpack-dev-server --config=./webpack.config.js",
+      "inst": "npm install"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "antd": "^4.4.2",
+      "axios": "^0.19.2",
+      "babel-core": "^6.26.3",
+      "babel-loader": "^7.1.5",
+      "babel-preset-env": "^1.7.0",
+      "babel-preset-es2015": "^6.24.1",
+      "babel-preset-react": "^6.24.1",
+      "cross-env": "^7.0.2",
+      "css-loader": "^3.6.0",
+      "html-webpack-plugin": "^4.3.0",
+      "node-sass": "^4.14.1",
+      "react": "^16.13.1",
+      "react-dom": "^16.13.1",
+      "react-router": "^5.2.0",
+      "react-router-dom": "^5.2.0",
+      "sass-loader": "^9.0.2",
+      "style-loader": "^1.2.1",
+      "webpack": "^4.43.0",
+      "webpack-cli": "^3.3.12",
+      "webpack-dev-server": "^3.11.0"
+    },
+    "devDependencies": {
+      "eslint": "^7.4.0",
+      "eslint-plugin-react": "^7.20.3"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
