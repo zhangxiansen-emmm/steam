@@ -2,4 +2,4 @@
 
 ### 项目介绍
 
-该项目前端采用 React、Rudex、Router、Antd、Axios
+该项目前端技术采用 React、Rudex、Router、Antd-UI、Axios

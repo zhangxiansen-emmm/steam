@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import ReactDom from 'react-dom'
 import { HashRouter, Route } from 'react-router-dom'
+import Ajax from '../Ajax'
 import { Row, Col } from 'antd'
 import 'antd/dist/antd.css'
 import './index.scss'
@@ -18,6 +19,7 @@ class App extends Component {
     })
   }
   render() {
+    Ajax.get('/#login',{}).then(res=>{console.log(res)})
     return (
       <Fragment>
         <Row type='flex' align='center' justify='center'>
@@ -43,6 +45,7 @@ class Login extends Component {
     this.setState({
       count: count + 1
     })
+    console.log(1)
   }
   render() {
     return (
