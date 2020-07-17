@@ -3,6 +3,7 @@ import { get } from 'js-cookie'
 
 const Ajax = axios.create({
   timeout: 1000,
+  baseURL:'http://localhost:4430/'
 })
 
 Ajax.interceptors.request.use((config) => {

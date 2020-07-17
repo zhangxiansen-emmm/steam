@@ -16,6 +16,15 @@ module.exports = {
     open: true,
     // port: 10406,
     inline: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4430/',
+        pathRewrite: {
+          '/api/': ''
+        },
+        changeOrigin: true
+      }
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -56,4 +65,9 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    alias: {
+      '@View': path.resolve(__dirname, 'src/View')
+    }
+  }
 }

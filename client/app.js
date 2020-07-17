@@ -1,6 +1,23 @@
 const koa = require('koa')
-const app = new koa();
+const app = new koa()
 const qs = require('qs')
+const mysql = require('mysql')
+const co = require('co-mysql')
+
+
+const context = mysql.createPool({}) //数据库地址链接
+
+app.context.db = co(context)
+
+
+
+
+
+
+
+
+
+
 
 
 

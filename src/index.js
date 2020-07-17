@@ -2,65 +2,57 @@ import React, { Component, Fragment } from 'react'
 import ReactDom from 'react-dom'
 import { HashRouter, Route } from 'react-router-dom'
 import Ajax from '../Ajax'
-import { Row, Col } from 'antd'
+import { Layout } from 'antd'
 import 'antd/dist/antd.css'
 import './assets/my_theme.less'
+import Headers from '@View/Header'
+import Nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
+const { Header, Footer, Sider, Content } = Layout
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      count: 1
+      toggleSider: false
     }
   }
-  click() {
-    const { count } = this.state
+  toggleSider(toggle) {
     this.setState({
-      count: count + 1
+      toggleSider: toggle
     })
   }
+  componentDidMount() {
+    // window.addEventListener('hashchange', function () {
+    //   Nprogress.start()
+    //   setTimeout(()=>{
+    //     Nprogress.done()
+    //   },3000)
+    // },false)
+  }
   render() {
-    Ajax.get('/#login',{}).then(res=>{console.log(res)})
+    // Ajax.get('/#login', {}).then(res => { console.log(res) })
+    const { toggleSider } = this.state
     return (
       <Fragment>
-        <Row type='flex' align='center' justify='center'>
-          <Col span={3} ><div className='oneday'>143</div></Col>
-        </Row><Row type='flex' align='center' justify='center'>
-          <Col span={3} ><div className='oneday'>143</div></Col>
-        </Row><Row type='flex' align='center' justify='center'>
-          <Col span={3} ><div className='oneday'>143</div></Col>
-        </Row>
+        <Layout style={{ minHeight: '100vh' }}>
+          <Sider collapsible collapsed={toggleSider} onCollapse={this.toggleSider.bind(this)}>Sider</Sider>
+          <Layout>
+            <Header>
+              <Headers />
+            </Header>
+            <Content>
+              <HashRouter>
+                <div>
+                  {/* <Route path='/' exact component={App}></Route> */}
+                </div>
+              </HashRouter>
+            </Content>
+          </Layout>
+        </Layout>
       </Fragment>
     )
   }
 }
-class Login extends Component {
-  constructor() {
-    super()
-    this.state = {
-      count: 5
-    }
-  }
-  click() {
-    const { count } = this.state
-    this.setState({
-      count: count + 1
-    })
-    console.log(1)
-  }
-  render() {
-    return (
-      <Fragment>
-        <div className='oneday' onClick={() => this.click()}>{this.state.count}</div>
-      </Fragment>
-    )
-  }
-}
+
 // hash 路由 可以用hashchange on   browserRouter 每次切换会向后台请求一个接口  即服务器路由
-ReactDom.render((
-  <HashRouter>
-    <div>
-      <Route path='/' exact component={App}></Route>
-      <Route path='/login' exact component={Login}></Route>
-      <Route path='/detail/:id' exact component={() => <div>4</div>}></Route>
-    </div>
-  </HashRouter>), document.querySelector('#root'))
+ReactDom.render(<App />, document.querySelector('#root'))
