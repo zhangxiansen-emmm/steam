@@ -3,22 +3,25 @@ import ReactDom from 'react-dom'
 import { HashRouter, Route } from 'react-router-dom'
 import Ajax from '../Ajax'
 import { Layout } from 'antd'
+import Routes from './routes'
 import 'antd/dist/antd.css'
+import './assets/index.css'
 import './assets/my_theme.less'
 import Headers from '@View/Header'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+
 const { Header, Footer, Sider, Content } = Layout
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      toggleSider: false
+      toggleSider: false,
     }
   }
   toggleSider(toggle) {
     this.setState({
-      toggleSider: toggle
+      toggleSider: toggle,
     })
   }
   componentDidMount() {
@@ -30,25 +33,22 @@ class App extends Component {
     // },false)
   }
   render() {
-    // Ajax.get('/#login', {}).then(res => { console.log(res) })
     const { toggleSider } = this.state
     return (
       <Fragment>
-        <Layout style={{ minHeight: '100vh' }}>
-          <Sider collapsible collapsed={toggleSider} onCollapse={this.toggleSider.bind(this)}>Sider</Sider>
-          <Layout>
-            <Header>
-              <Headers />
-            </Header>
-            <Content>
-              <HashRouter>
-                <div>
-                  {/* <Route path='/' exact component={App}></Route> */}
-                </div>
-              </HashRouter>
-            </Content>
-          </Layout>
-        </Layout>
+        <HashRouter>
+          {Routes.map((item) => {
+            // console.log()
+            return (
+              <Route
+                path={item.path}
+                exact={item.exact}
+                component={item.component}
+                key={item.key}
+              ></Route>
+            )
+          })}
+        </HashRouter>
       </Fragment>
     )
   }

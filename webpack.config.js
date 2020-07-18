@@ -17,10 +17,10 @@ module.exports = {
     // port: 10406,
     inline: true,
     proxy: {
-      '/api': {
+      '/api/': {
         target: 'http://localhost:4430/',
         pathRewrite: {
-          '/api/': ''
+          '^/api/': ''
         },
         changeOrigin: true
       }
