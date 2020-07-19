@@ -1,17 +1,19 @@
 const koa = require('koa')
-const Router = require('koa-router')
 const app = new koa()
-const router = new Router()
 const bodyparser = require('koa-bodyparser')
-const jwt = require('jsonwebtoken')
 const qs = require('qs')
+const readFile = require('./Router')
 const { sequelize, userModal } = require('./sequelize')
-
 app.use(bodyparser())
+
+
+
+
+
 app.use(async (ctx, next) => {
   const { url, header } = await ctx.request
   if (url === '/login') {
-    next()
+    await next()
     return
   }
 
@@ -28,13 +30,10 @@ app.use(async (ctx, next) => {
   }
 })
 
-router.post('/login', async (ctx, val) => {
-  const params = ctx.request.body;
-  
-  ctx.body = 1
-})
 
-app.use(router.routes()).use(router.allowedMethods())
+
+app.use(readFile())
+
 
 app.listen(4430, () => {
   console.log('已启动')

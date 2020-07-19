@@ -31,7 +31,7 @@ class Login extends Component {
                 <Item label="账号" name="userId">
                   <Input />
                 </Item>
-                <Item label="密码" name="passWord">
+                <Item label="密码" name="password">
                   <Input.Password />
                 </Item>
                 <Item>

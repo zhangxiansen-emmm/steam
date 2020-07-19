@@ -4,7 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: './src/index.js',
+  entry: {
+    main: './src/index.js',
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
@@ -20,11 +22,11 @@ module.exports = {
       '/api/': {
         target: 'http://localhost:4430/',
         pathRewrite: {
-          '^/api/': ''
+          '^/api/': '',
         },
-        changeOrigin: true
-      }
-    }
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -67,7 +69,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@View': path.resolve(__dirname, 'src/View')
-    }
-  }
+      '@View': path.resolve(__dirname, 'src/View'),
+      '@sequelize': path.resolve(__dirname, 'client/sequelize'),
+    },
+  },
 }

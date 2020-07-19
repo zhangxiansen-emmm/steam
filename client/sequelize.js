@@ -32,12 +32,15 @@ sequelize.authenticate().then(
 const userModal = sequelize.define(
   'menu',
   {
-    userId: {
-      type: Sequelize.BIGINT(11),
-      primaryKey: true,
+    id: {
+      type: Sequelize.UUID,
       allowNull: false,
+      primaryKey: true,
+      defaultValue: Sequelize.UUIDV1,
       unique: true,
-      autoIncrement: true,
+    },
+    userId: {
+      type: Sequelize.TEXT(),
     },
     token: Sequelize.TEXT(),
     password: Sequelize.INTEGER(11),
@@ -56,13 +59,12 @@ sequelize.sync().then(
     console.log('init create ok')
     // 创建表
     const data = sequelize.model('menu')
-    data.sync({ force: true, loging: true }).then((res) => {
-      console.log(res)
-    })
+    data.sync({ force: true, loging: true }).then(
+      (res) => res,
+      (err) => err
+    )
   },
-  (error) => {
-    console.log('create error' + error)
-  }
+  (err) => err
 )
 
 module.exports = { sequelize, userModal }

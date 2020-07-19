@@ -7,7 +7,7 @@ const routes = [
   //   component: App,
   // },
   {
-    path: '/places/login',
+    path: '/login',
     component: Login,
     exact: true,
     key:'login'
