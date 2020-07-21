@@ -1,4 +1,5 @@
 const koa = require('koa')
+require('module-alias/register')  
 const app = new koa()
 const bodyparser = require('koa-bodyparser')
 const qs = require('qs')

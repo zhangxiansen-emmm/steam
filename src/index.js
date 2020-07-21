@@ -20,7 +20,7 @@ class App extends Component {
     }
   }
   toggleSider(toggle) {
-    this.setState({
+    this.setState({ 
       toggleSider: toggle,
     })
   }

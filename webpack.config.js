@@ -43,6 +43,8 @@ module.exports = {
             loader: 'babel-loader',
             options: { presets: ['react', 'env'] },
           },
+          'css-loader',
+          'style-loader'
         ],
         exclude: /node_modules/,
       },

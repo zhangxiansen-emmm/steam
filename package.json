@@ -31,6 +31,7 @@
     "koa-router": "^9.1.0",
     "less": "^3.12.0",
     "less-loader": "^6.2.0",
+    "module-alias": "^2.2.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.4",
@@ -50,5 +51,9 @@
     "babel-preset-env": "^1.7.0",
     "eslint": "^7.4.0",
     "eslint-plugin-react": "^7.20.3"
-  }
+  },
+  "_moduleAliases":{
+      "@Modale" : "client/sequelize.js"
+  },
+  "_moduleDirectories": ["node_modules_custom"]
 }
