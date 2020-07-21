@@ -1,20 +1,33 @@
-import React, { Component, Fragment, createRef } from 'react'
+import React, { Component, Fragment } from 'react'
 import './index.less'
 import { Row, Col, Form, Input, Button } from 'antd'
+import Store from '../../redux/store'
 import Ajax from '../../../Ajax'
 const { Item } = Form
+
+
 class Login extends Component {
   constructor(props) {
     super()
-    this.formRef = React.createRef()
+    this.state = {
+      loading: false
+    }
   }
-  componentDidMount() {
-    console.log(this.formRef)
-  }
+
   Submit(val) {
-    Ajax.post('login', val).then((res) => {
-      console.log(res)
+    // Store.dispatch({ type: 'USERNAME' })
+    const { validateFields } = this.refs.form
+    validateFields().then(res => {
+      //res 去除form表单里的value 可以直接进行操作
+      console.log(this)
+      Ajax.post('login', val).then((res) => {
+        console.log(res)
+      })
     })
+    this.setState({
+      loading: true
+    })
+
   }
   render() {
     return (
@@ -24,19 +37,21 @@ class Login extends Component {
           align="middle"
           justify="center"
           style={{ height: '100%' }}
+          className='login_container'
         >
-          <Col span={5}>
-            <div className="login_container">
-              <Form ref={this.formRef} onFinish={this.Submit}>
-                <Item label="账号" name="userId">
-                  <Input />
+          <Col span={8}>
+            <div className="login_form">
+              <div className='login_title'>GameSystem</div>
+              <Form ref='form' onFinish={(val) => this.Submit(val)} initialValues={{ userId: 111 }}>
+                <Item name="userId" rules={[{ required: true, message: 'please input ur name' }]}>
+                  <Input placeholder='用户名' />
                 </Item>
-                <Item label="密码" name="password">
-                  <Input.Password />
+                <Item name="password" rules={[{ required: true, message: 'please input ur password', min: 8, message: '最少8位数' }]}>
+                  <Input.Password placeholder='密码' />
                 </Item>
                 <Item>
                   <Row type="flex" align="middle" justify="center">
-                    <Button htmlType="submit" type="primary">
+                    <Button htmlType="submit" type="success" block loading={this.state.loading} >
                       登录
                     </Button>
                   </Row>
@@ -45,7 +60,7 @@ class Login extends Component {
             </div>
           </Col>
         </Row>
-      </Fragment>
+      </Fragment >
     )
   }
 }

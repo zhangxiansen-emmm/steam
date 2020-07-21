@@ -38,8 +38,11 @@
     "nprogress": "^0.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "sequelize": "^6.3.3",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
@@ -52,8 +55,10 @@
     "eslint": "^7.4.0",
     "eslint-plugin-react": "^7.20.3"
   },
-  "_moduleAliases":{
-      "@Modale" : "client/sequelize.js"
+  "_moduleAliases": {
+    "@Modale": "client/sequelize.js"
   },
-  "_moduleDirectories": ["node_modules_custom"]
+  "_moduleDirectories": [
+    "node_modules_custom"
+  ]
 }

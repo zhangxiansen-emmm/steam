@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import ReactDom from 'react-dom'
 import { HashRouter, Route } from 'react-router-dom'
+import Store from './redux/store'
 import Ajax from '../Ajax'
-import { Layout } from 'antd'
+import { Layout, ConfigProvider } from 'antd'
 import Routes from './routes'
 import 'antd/dist/antd.css'
 import './assets/index.css'
@@ -12,6 +13,8 @@ import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 const { Header, Footer, Sider, Content } = Layout
+
+Store.subscribe(() => Store.getState())
 class App extends Component {
   constructor() {
     super()
@@ -20,7 +23,8 @@ class App extends Component {
     }
   }
   toggleSider(toggle) {
-    this.setState({ 
+
+    this.setState({
       toggleSider: toggle,
     })
   }
@@ -43,7 +47,8 @@ class App extends Component {
               <Route
                 path={item.path}
                 exact={item.exact}
-                component={item.component}
+                // component={item.component}
+                render={props => <item.component {...props} />}
                 key={item.key}
               ></Route>
             )
@@ -55,4 +60,7 @@ class App extends Component {
 }
 
 // hash 路由 可以用hashchange on   browserRouter 每次切换会向后台请求一个接口  即服务器路由
-ReactDom.render(<App />, document.querySelector('#root'))
+ReactDom.render(
+  <ConfigProvider name={1}>
+    <App />
+  </ConfigProvider>, document.querySelector('#root'))

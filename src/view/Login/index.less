@@ -2,10 +2,21 @@
   height: 100vh;
 }
 .login_container{
-  padding: 50px 50px  ;
-  background-color: #531dab;
-  & .ant-form-item label {
-    color: #fff !important;
+  background-color: #f3f3f4;
+  & .login_title{
+    text-align: center;
+    font-size: 60px;
+    margin-bottom: 20px;
+    color: transparent;
+    background-image: linear-gradient(to right,#a6c0fe,#f68084);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    position:relative;
   }
-  
+  & .login_form{
+    padding: 50px;
+    & .ant-form-item label {
+      color: #333 !important;
+    }
+  }
 }
