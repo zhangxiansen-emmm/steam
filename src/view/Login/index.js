@@ -3,31 +3,36 @@ import './index.less'
 import { Row, Col, Form, Input, Button } from 'antd'
 import Store from '../../redux/store'
 import Ajax from '../../../Ajax'
+import JsCookie from 'js-cookie'
 const { Item } = Form
-
 
 class Login extends Component {
   constructor(props) {
     super()
     this.state = {
-      loading: false
+      loading: false,
     }
   }
 
   Submit(val) {
+    this.setState({
+      loading: true,
+    })
     // Store.dispatch({ type: 'USERNAME' })
     const { validateFields } = this.refs.form
-    validateFields().then(res => {
+    validateFields().then((res) => {
       //res 去除form表单里的value 可以直接进行操作
-      console.log(this)
       Ajax.post('login', val).then((res) => {
         console.log(res)
+        const { data } = res
+        if (data.token) {
+          JsCookie.set('token', data.token)
+          this.setState({
+            loading: false,
+          })
+        }
       })
     })
-    this.setState({
-      loading: true
-    })
-
   }
   render() {
     return (
@@ -37,21 +42,43 @@ class Login extends Component {
           align="middle"
           justify="center"
           style={{ height: '100%' }}
-          className='login_container'
+          className="login_container"
         >
           <Col span={8}>
             <div className="login_form">
-              <div className='login_title'>GameSystem</div>
-              <Form ref='form' onFinish={(val) => this.Submit(val)} initialValues={{ userId: 111 }}>
-                <Item name="userId" rules={[{ required: true, message: 'please input ur name' }]}>
-                  <Input placeholder='用户名' />
+              <div className="login_title">GameSystem</div>
+              <Form
+                ref="form"
+                onFinish={(val) => this.Submit(val)}
+                initialValues={{ userId: 111 }}
+              >
+                <Item
+                  name="userId"
+                  rules={[{ required: true, message: 'please input ur name' }]}
+                >
+                  <Input placeholder="用户名" />
                 </Item>
-                <Item name="password" rules={[{ required: true, message: 'please input ur password', min: 8, message: '最少8位数' }]}>
-                  <Input.Password placeholder='密码' />
+                <Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'please input ur password',
+                      min: 8,
+                      message: '最少8位数',
+                    },
+                  ]}
+                >
+                  <Input.Password placeholder="密码" />
                 </Item>
                 <Item>
                   <Row type="flex" align="middle" justify="center">
-                    <Button htmlType="submit" type="success" block loading={this.state.loading} >
+                    <Button
+                      htmlType="submit"
+                      type="success"
+                      block
+                      loading={this.state.loading}
+                    >
                       登录
                     </Button>
                   </Row>
@@ -60,7 +87,7 @@ class Login extends Component {
             </div>
           </Col>
         </Row>
-      </Fragment >
+      </Fragment>
     )
   }
 }
