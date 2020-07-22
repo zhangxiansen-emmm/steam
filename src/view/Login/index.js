@@ -4,6 +4,7 @@ import { Row, Col, Form, Input, Button } from 'antd'
 import Store from '../../redux/store'
 import Ajax from '../../../Ajax'
 import JsCookie from 'js-cookie'
+import { connect } from 'react-redux'
 const { Item } = Form
 
 class Login extends Component {
@@ -34,6 +35,13 @@ class Login extends Component {
       })
     })
   }
+  static getDerivedStateFromProps(prev, next) {
+    console.log(prev, next)
+    return {}
+  }
+
+
+
   render() {
     return (
       <Fragment>
@@ -91,4 +99,8 @@ class Login extends Component {
     )
   }
 }
-export default Login
+
+// Login.contextType = {
+//   userName : React.PropTypes.object.isRequired
+// }
+export default connect()(Login)

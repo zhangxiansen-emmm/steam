@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import ReactDom from 'react-dom'
-import { HashRouter, Route } from 'react-router-dom'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 import Store from './redux/store'
+import { Provider, connect } from 'react-redux'
 import Ajax from '../Ajax'
-import { Layout, ConfigProvider } from 'antd'
+import { Layout } from 'antd'
 import Routes from './routes'
 import 'antd/dist/antd.css'
 import './assets/index.css'
@@ -16,51 +17,50 @@ const { Header, Footer, Sider, Content } = Layout
 
 Store.subscribe(() => Store.getState())
 class App extends Component {
-  constructor() {
+  constructor(props) {
     super()
-    this.state = {
-      toggleSider: false,
-    }
+    this.state = {}
+    console.log(this)
   }
-  toggleSider(toggle) {
 
-    this.setState({
-      toggleSider: toggle,
-    })
-  }
-  componentDidMount() {
-    // window.addEventListener('hashchange', function () {
-    //   Nprogress.start()
-    //   setTimeout(()=>{
-    //     Nprogress.done()
-    //   },3000)
-    // },false)
-  }
+
+
   render() {
-    const { toggleSider } = this.state
     return (
       <Fragment>
         <HashRouter>
-          {Routes.map((item) => {
-            // console.log()
-            return (
-              <Route
-                path={item.path}
-                exact={item.exact}
-                // component={item.component}
-                render={props => <item.component {...props} />}
-                key={item.key}
-              ></Route>
-            )
-          })}
+          <Switch>
+            {Routes.map((item) => {
+              // console.log()
+              return (
+                <Route
+                  path={item.path}
+                  exact={item.exact}
+                  // component={item.component}
+                  render={props => <item.component {...props} />}
+                  key={item.key}
+                ></Route>
+              )
+            })}
+          </Switch>
         </HashRouter>
       </Fragment>
     )
   }
 }
 
+const mapStateToProps = state => {
+  return { state }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    addClick: (actions) => dispatch(actions)
+  }
+}
+const Root = connect(mapStateToProps, mapDispatchToProps)(App)
+// const Root = connect(mapStateToProps, mapDispatchToProps)(App)
 // hash 路由 可以用hashchange on   browserRouter 每次切换会向后台请求一个接口  即服务器路由
 ReactDom.render(
-  <ConfigProvider name={1}>
-    <App />
-  </ConfigProvider>, document.querySelector('#root'))
+  <Provider store={Store}>
+    <Root />
+  </Provider>, document.querySelector('#root'))

@@ -1,11 +1,11 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
+import logger from 'redux-logger'
 
 
 
 const Store = (state = 'name', actions) => {
   const { type } = actions
-  console.log(type)
   switch (type) {
   case 'USERNAME':
     return state = 'USERNAME'
@@ -15,4 +15,6 @@ const Store = (state = 'name', actions) => {
   }
 }
 
-export default createStore(Store, applyMiddleware(thunk))
+export default createStore(combineReducers({
+  state: Store
+}), applyMiddleware(thunk, logger))
