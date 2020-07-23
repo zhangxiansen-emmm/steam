@@ -5,6 +5,7 @@ import Store from './redux/store'
 import { Provider, connect } from 'react-redux'
 import Ajax from '../Ajax'
 import { Layout } from 'antd'
+import Index from '@View/Index'
 import Routes from './routes'
 import 'antd/dist/antd.css'
 import './assets/index.css'
@@ -20,7 +21,6 @@ class App extends Component {
   constructor(props) {
     super()
     this.state = {}
-    console.log(this)
   }
 
 
@@ -28,16 +28,17 @@ class App extends Component {
   render() {
     return (
       <Fragment>
+        {/* <Index></Index> */}
         <HashRouter>
           <Switch>
             {Routes.map((item) => {
-              // console.log()
+              console.log(item)
               return (
                 <Route
                   path={item.path}
-                  exact={item.exact}
+                  exact={item.exact || false}
                   // component={item.component}
-                  render={props => <item.component {...props} />}
+                  render={props => <item.component {...props} routes={item.children} />}
                   key={item.key}
                 ></Route>
               )

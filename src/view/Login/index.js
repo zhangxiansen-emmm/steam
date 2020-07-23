@@ -1,20 +1,21 @@
 import React, { Component, Fragment } from 'react'
 import './index.less'
-import { Row, Col, Form, Input, Button } from 'antd'
+import { Row, Col, Form, Input, Button,  } from 'antd'
 import Store from '../../redux/store'
 import Ajax from '../../../Ajax'
 import JsCookie from 'js-cookie'
 import { connect } from 'react-redux'
 const { Item } = Form
 
+
+
 class Login extends Component {
   constructor(props) {
-    super()
+    super();
     this.state = {
       loading: false,
-    }
+    };
   }
-
   Submit(val) {
     this.setState({
       loading: true,
@@ -24,7 +25,6 @@ class Login extends Component {
     validateFields().then((res) => {
       //res 去除form表单里的value 可以直接进行操作
       Ajax.post('login', val).then((res) => {
-        console.log(res)
         const { data } = res
         if (data.token) {
           JsCookie.set('token', data.token)
@@ -35,12 +35,6 @@ class Login extends Component {
       })
     })
   }
-  static getDerivedStateFromProps(prev, next) {
-    console.log(prev, next)
-    return {}
-  }
-
-
 
   render() {
     return (
@@ -100,7 +94,4 @@ class Login extends Component {
   }
 }
 
-// Login.contextType = {
-//   userName : React.PropTypes.object.isRequired
-// }
 export default connect()(Login)

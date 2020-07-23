@@ -5,6 +5,9 @@ const REJECTED = 'REJECTED'
 
 
 class AsyncPromise {
+  defaultValue = {
+    a:'1'
+  }
   constructor(callback) {
     this.status = ''
     this.value = ''

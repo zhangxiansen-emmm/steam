@@ -12,6 +12,9 @@ module.exports = {
     filename: '[name].js',
     publicPath: '/',
   },
+  optimization: {    // 1. 这个配置必须
+    minimize: false
+  },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     hot: true,
@@ -31,6 +34,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
+      hash: true
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
@@ -41,10 +45,12 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: { presets: ['react', 'env'] },
+            options: { presets: ["es2015", "react","stage-2",'env'] },
           },
+          'source-map-loader'
         ],
         exclude: /node_modules/,
+        enforce: 'pre'
       },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       {
