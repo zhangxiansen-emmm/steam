@@ -1,7 +1,6 @@
 import React from 'react'
-import Login from '@View/Login'
 import App from '@View/Index'
-console.log(App)
+import Login from '@View/Login'
 
 const routes = [
   {
@@ -12,12 +11,17 @@ const routes = [
     children: [{
       path: '/app/table',
       component: () => <div>231312321</div>,
-      key: 'default',
+      key: 'table',
       exact: true
     }, {
       path: '/app/introduce',
       component: () => <div>11111</div>,
       key: 'introduce',
+      exact: true,
+    }, {
+      path: '/app/index',
+      component: () => <div>11111</div>,
+      key: 'index',
       exact: true,
     }]
   },

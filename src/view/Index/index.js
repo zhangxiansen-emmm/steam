@@ -2,23 +2,27 @@ import React, { Fragment, Component } from 'react'
 import { Layout, Menu } from 'antd'
 import Ajax from '../../../Ajax'
 import { HashRouter, Route, Switch, Link } from 'react-router-dom';
-import Routes from '../../routes'
 const { Header, Footer, Sider, Content } = Layout;
 const { Item } = Menu;
 
 
-export default class App extends Component {
+
+class App extends Component {
     constructor(props) {
         console.log(props)
         super()
         this.state = {
             menu: [{
-                path: '/#/app/index',
+                path: '/app/table',
                 key: 'table',
                 children: []
             }, {
-                path: '/#/app/introduce',
+                path: '/app/introduce',
                 key: 'introduce',
+                children: []
+            }, {
+                path: '/app/index',
+                key: 'index',
                 children: []
             }]
         };
@@ -35,35 +39,35 @@ export default class App extends Component {
     }
 
     subMenuItem() {
-        return this.state.menu.map(item => <Item key={item.key}><a href={item.path}>{item.key}</a></Item>)
+        return this.state.menu.map(item => <Item key={item.key}><Link to={item.path}>{item.key}</Link></Item>)
     }
 
     render() {
-        // const { routes } = this.props
+        const { routes } = this.props
         // console.log(routes)
         return (
             <Fragment>
-                <Layout>
-                    <Sider>
-                        {/* <Menu onClick={this.MenuClick.bind(this)}>
-                            {this.subMenuItem()}
-                        </Menu> */}
-                        {/* <Link to={'/app/index'}>1111</Link> */}
-                    </Sider>
+                <HashRouter>
                     <Layout>
-                        <Header>header</Header>
-                        <Content>
-                            <HashRouter>
+                            
+                        <Sider>
+                            <Menu onClick={this.MenuClick.bind(this)}>
+                                {this.subMenuItem()}
+                            </Menu>
+                        </Sider>
+                        <Layout>
+                            <Header>header</Header>
+                            <Content>
                                 <Switch>
-                                    {/* {routes.map(item => <Route exact key={item.key} render={props => <item.component {...props}></item.component>}></Route>)} */}
-                                    <Route  path={'/app/index'} render={()=><div>1123213</div>}></Route>
+                                    {routes.map(item => <Route exact path={item.path} key={item.key} render={props => <item.component {...props}></item.component>}></Route>)}
                                 </Switch>
-                            </HashRouter>
-
-                        </Content>
+                            </Content>
+                        </Layout>
                     </Layout>
-                </Layout>
+                </HashRouter>
             </Fragment>
         )
     }
 }
+
+export default App
