@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import ReactDom from 'react-dom'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Store from './redux/store'
 import { Provider, connect } from 'react-redux'
 import Ajax from '../Ajax'
@@ -12,6 +12,8 @@ import './assets/my_theme.less'
 import Headers from '@View/Header'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+// require('./color.js')  
+
 
 const { Header, Footer, Sider, Content } = Layout
 
@@ -27,11 +29,9 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        {/* <Index></Index> */}
-        <HashRouter>
+        <BrowserRouter>
           <Switch>
             {Routes.map((item) => {
-              console.log(item)
               return (
                 <Route
                   path={item.path}
@@ -43,7 +43,7 @@ class App extends Component {
               )
             })}
           </Switch>
-        </HashRouter>
+        </BrowserRouter>
       </Fragment>
     )
   }

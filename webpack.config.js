@@ -6,6 +6,7 @@ module.exports = {
   mode: process.env.NODE_ENV,
   entry: {
     main: './src/index.js',
+    color: './src/color.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -45,7 +46,7 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: { presets: ["es2015", "react","stage-2",'env'] },
+            options: { presets: ["es2015", "react", "stage-2", 'env'] },
           },
           'source-map-loader'
         ],

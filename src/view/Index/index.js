@@ -1,7 +1,9 @@
 import React, { Fragment, Component } from 'react'
-import { Layout, Menu } from 'antd'
+import { Layout, Menu, Card } from 'antd'
+import { DesktopOutlined } from '@ant-design/icons';
 import Ajax from '../../../Ajax'
-import { HashRouter, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link, withRouter } from 'react-router-dom';
+import './index.less'
 const { Header, Footer, Sider, Content } = Layout;
 const { Item } = Menu;
 
@@ -9,54 +11,58 @@ const { Item } = Menu;
 
 class App extends Component {
     constructor(props) {
-        console.log(props)
         super()
         this.state = {
+            collapsed: false,
             menu: [{
-                path: '/app/table',
-                key: 'table',
-                children: []
-            }, {
-                path: '/app/introduce',
-                key: 'introduce',
-                children: []
-            }, {
-                path: '/app/index',
-                key: 'index',
-                children: []
-            }]
+                path: '/app/userTranslate',
+                key: 'userTranslate',
+                children: [],
+                icon: <DesktopOutlined />,
+                name: '用户管理'
+            }],
+            currentPath: ''
         };
     }
 
     componentWillMount() {
-        // console.log(this.props.routes)
+        console.log()
         // const params = {}
         // Ajax.post('users/menu', params).then(res => { })
+        this.setState({
+            currentPath: this.props.location.pathname
+        })
     }
-
+    onCollapse(toggle) {
+        this.setState({
+            collapsed: toggle
+        })
+    }
     MenuClick(item) {
         console.log(item)
     }
 
     subMenuItem() {
-        return this.state.menu.map(item => <Item key={item.key}><Link to={item.path}>{item.key}</Link></Item>)
+        return this.state.menu.map(item => <Item icon={item.icon} key={item.key}><Link to={item.path}>{item.name}</Link></Item>)
     }
 
+    onTabChange(key) {
+
+        console.log(key)
+    }
     render() {
-        const { routes } = this.props
-        // console.log(routes)
+        const { routes } = this.props;
+        const { currentPath } = this.state;
         return (
             <Fragment>
-                <HashRouter>
-                    <Layout>
-                            
-                        <Sider>
-                            <Menu onClick={this.MenuClick.bind(this)}>
+                <BrowserRouter>
+                    <Layout className='container'>
+                        <Sider style={{ background: '#ccc' }} collapsible collapsed={this.state.collapsed} onCollapse={(toggle) => this.onCollapse(toggle)}>
+                            <Menu defaultSelectedKeys={currentPath} style={{ background: '#ccc' }} onClick={this.MenuClick.bind(this)}>
                                 {this.subMenuItem()}
                             </Menu>
                         </Sider>
                         <Layout>
-                            <Header>header</Header>
                             <Content>
                                 <Switch>
                                     {routes.map(item => <Route exact path={item.path} key={item.key} render={props => <item.component {...props}></item.component>}></Route>)}
@@ -64,10 +70,10 @@ class App extends Component {
                             </Content>
                         </Layout>
                     </Layout>
-                </HashRouter>
+                </BrowserRouter>
             </Fragment>
         )
     }
 }
 
-export default App
+export default withRouter(App) 

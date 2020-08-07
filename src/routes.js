@@ -9,20 +9,15 @@ const routes = [
     key: 'app',
     exact: false,
     children: [{
-      path: '/app/table',
+        path: '/app/default',
+        component: () => <div>231312321</div>,
+        key: 'default',
+        exact: true
+    },{
+      path: '/app/userTranslate',
       component: () => <div>231312321</div>,
-      key: 'table',
+      key: 'userTranslate',
       exact: true
-    }, {
-      path: '/app/introduce',
-      component: () => <div>11111</div>,
-      key: 'introduce',
-      exact: true,
-    }, {
-      path: '/app/index',
-      component: () => <div>11111</div>,
-      key: 'index',
-      exact: true,
     }]
   },
   {
