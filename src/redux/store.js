@@ -4,17 +4,23 @@ import logger from 'redux-logger'
 
 
 
-const Store = (state = 'name', actions) => {
+const Store = (state = false, actions) => {
   const { type } = actions
   switch (type) {
-  case 'USERNAME':
-    return state = 'USERNAME'
+    case 'USERNAME':
+      return state = true
 
-  default:
-    return state
+    default:
+      return state
   }
 }
+const isLogin = (state = false, actions) => {
+  console.log('触发')
+  const { type, value } = actions;
+  if (type === 0 || type === 1) {
+    return state = Boolean(value)
+  }
+  return state
+}
 
-export default createStore(combineReducers({
-  state: Store
-}), applyMiddleware(thunk, logger))
+export default createStore(combineReducers({ Store, isLogin }), applyMiddleware(thunk, logger))

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import ReactDom from 'react-dom'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, redirectTo, useHistory } from 'react-router-dom'
 import Store from './redux/store'
 import { Provider, connect } from 'react-redux'
 import Ajax from '../Ajax'
@@ -11,37 +11,47 @@ import './assets/index.css'
 import './assets/my_theme.less'
 import Headers from '@View/Header'
 import Nprogress from 'nprogress'
+import Login from '@View/Login'
 import 'nprogress/nprogress.css'
 // require('./color.js')  
 
-
+let isLogin = true;
 const { Header, Footer, Sider, Content } = Layout
-
+const LoginOutBtn = () => {
+  let history = useHistory();
+  return <button onClick={() => { isLogin = false; history.push("/login") }}>退出登录</button>
+}
 Store.subscribe(() => Store.getState())
 class App extends Component {
   constructor(props) {
     super()
-    this.state = {}
+    this.state = {
+    }
+    console.log(props)
   }
 
 
 
   render() {
+    const { isLogin } = this.props.state;
+    console.log(this.props)
     return (
       <Fragment>
         <BrowserRouter>
           <Switch>
-            {Routes.map((item) => {
-              return (
-                <Route
-                  path={item.path}
-                  exact={item.exact || false}
-                  // component={item.component}
-                  render={props => <item.component {...props} routes={item.children} />}
-                  key={item.key}
-                ></Route>
-              )
-            })}
+            {
+              isLogin ? Routes.map((item) => {
+                return (
+                  <Route
+                    path={item.path}
+                    exact={item.exact || false}
+                    // component={item.component}
+                    render={props => <item.component {...props} routes={item.children} ele={LoginOutBtn}></item.component>}
+                    key={item.key}
+                  ></Route>
+                )
+              }) : <Login />
+            }
           </Switch>
         </BrowserRouter>
       </Fragment>

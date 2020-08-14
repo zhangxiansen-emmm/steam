@@ -1,11 +1,13 @@
-import React, { Fragment, Component } from 'react'
+import React, { Fragment, Component, } from 'react'
 import { Layout, Menu, Card } from 'antd'
 import { DesktopOutlined } from '@ant-design/icons';
 import Ajax from '../../../Ajax'
-import { BrowserRouter, Route, Switch, Link, withRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link, withRouter, Redirect, useHistory } from 'react-router-dom';
 import './index.less'
+import { connect } from 'react-redux';
 const { Header, Footer, Sider, Content } = Layout;
 const { Item } = Menu;
+
 
 
 
@@ -21,19 +23,23 @@ class App extends Component {
                 icon: <DesktopOutlined />,
                 name: '用户管理'
             }],
-            currentPath: ''
+            currentPath: '',
+
         };
     }
 
     componentWillMount() {
         console.log()
+
         // const params = {}
         // Ajax.post('users/menu', params).then(res => { })
-        this.setState({
-            currentPath: this.props.location.pathname
-        })
+        // this.setState({
+        //     currentPath: this.props.location.pathname
+        // })
     }
     onCollapse(toggle) {
+        console.log(this)
+        this.props.loginOut({ type: 0, value: false })
         this.setState({
             collapsed: toggle
         })
@@ -51,29 +57,35 @@ class App extends Component {
         console.log(key)
     }
     render() {
-        const { routes } = this.props;
+        const { routes, ele } = this.props;
         const { currentPath } = this.state;
         return (
             <Fragment>
-                <BrowserRouter>
-                    <Layout className='container'>
-                        <Sider style={{ background: '#ccc' }} collapsible collapsed={this.state.collapsed} onCollapse={(toggle) => this.onCollapse(toggle)}>
-                            <Menu defaultSelectedKeys={currentPath} style={{ background: '#ccc' }} onClick={this.MenuClick.bind(this)}>
-                                {this.subMenuItem()}
-                            </Menu>
-                        </Sider>
-                        <Layout>
-                            <Content>
-                                <Switch>
-                                    {routes.map(item => <Route exact path={item.path} key={item.key} render={props => <item.component {...props}></item.component>}></Route>)}
-                                </Switch>
-                            </Content>
-                        </Layout>
+                <Layout className='container'>
+                    <Sider style={{ background: '#ccc' }} collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse.bind(this)}>
+                        <Menu defaultSelectedKeys={currentPath} style={{ background: '#ccc' }} onClick={this.MenuClick.bind(this)}>
+                            {this.subMenuItem()}
+                        </Menu>
+                    </Sider>
+                    <Layout>
+                        <Content>
+                            <Switch>
+                                {routes.map(item => <Route exact path={item.path} key={item.key} render={props => <item.component {...props}></item.component>}></Route>)}
+                            </Switch>
+                        </Content>
                     </Layout>
-                </BrowserRouter>
+                </Layout>
+                <Redirect to='/login'>1</Redirect>
             </Fragment>
         )
     }
 }
 
-export default withRouter(App) 
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loginOut: (actions) => dispatch(actions)
+    }
+}
+
+export default connect((state) => ({ state }), mapDispatchToProps)(App) 
