@@ -71,6 +71,7 @@ module.exports = {
     alias: {
       '@View': path.resolve(__dirname, 'src/View'),
       '@sequelize': path.resolve(__dirname, 'client/sequelize'),
+      "@utils": path.resolve(__dirname, 'src/utils')
     },
   },
 }

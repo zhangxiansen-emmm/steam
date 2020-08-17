@@ -26,14 +26,10 @@ class App extends Component {
     super()
     this.state = {
     }
-    console.log(props)
   }
-
-
 
   render() {
     const { isLogin } = this.props.state;
-    console.log(this.props)
     return (
       <Fragment>
         <BrowserRouter>
