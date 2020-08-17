@@ -5,8 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   mode: process.env.NODE_ENV,
   entry: {
-    main: './src/index.js',
-    color: './src/color.js'
+    main: './src/index.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -43,13 +42,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: { presets: ["es2015", "react", "stage-2", 'env'] },
-          },
-          'source-map-loader'
-        ],
+        use: 'babel-loader',
         exclude: /node_modules/,
         enforce: 'pre'
       },

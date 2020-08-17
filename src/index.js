@@ -13,7 +13,6 @@ import Headers from '@View/Header'
 import Nprogress from 'nprogress'
 import Login from '@View/Login'
 import 'nprogress/nprogress.css'
-// require('./color.js')  
 
 let isLogin = true;
 const { Header, Footer, Sider, Content } = Layout

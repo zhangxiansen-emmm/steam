@@ -15,7 +15,6 @@ const Store = (state = false, actions) => {
   }
 }
 const isLogin = (state = false, actions) => {
-  console.log('触发')
   const { type, value } = actions;
   if (type === 0 || type === 1) {
     return state = Boolean(value)

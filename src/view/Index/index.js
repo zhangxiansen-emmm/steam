@@ -29,8 +29,8 @@ class App extends Component {
     }
 
     componentWillMount() {
-        console.log()
-
+        // console.log(this.default,'mounted')
+        
         // const params = {}
         // Ajax.post('users/menu', params).then(res => { })
         // this.setState({
@@ -75,12 +75,10 @@ class App extends Component {
                         </Content>
                     </Layout>
                 </Layout>
-                <Redirect to='/login'>1</Redirect>
             </Fragment>
         )
     }
 }
-
 
 const mapDispatchToProps = (dispatch) => {
     return {
