@@ -1,25 +1,21 @@
 import React, { Component, Fragment } from 'react'
 import './index.less'
-import { Row, Col, Form, Input, Button, } from 'antd'
+import { Row, Col, Form, Input, Button } from 'antd'
 import Store from '../../redux/store'
 import Ajax from '../../../Ajax'
 import JsCookie from 'js-cookie'
 import { connect } from 'react-redux'
 const { Item } = Form
 
-
-
 class Login extends Component {
   constructor(props) {
-    super();
+    super()
     console.log(props, 'login')
     this.state = {
       loading: false,
-    };
+    }
   }
   Submit(val) {
-    this.props.loginIn({ type: 1, value: true })
-    return
     this.setState({
       loading: true,
     })
@@ -31,6 +27,7 @@ class Login extends Component {
         const { data } = res
         if (data.token) {
           JsCookie.set('token', data.token)
+          this.props.loginIn({ type: 1, value: data.token })
           this.setState({
             loading: false,
           })
@@ -99,7 +96,7 @@ class Login extends Component {
 const mapStateToProps = (state) => ({ state })
 const mapDispatchToProps = (dispatch) => {
   return {
-    loginIn: (actions) => dispatch(actions)
+    loginIn: (actions) => dispatch(actions),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

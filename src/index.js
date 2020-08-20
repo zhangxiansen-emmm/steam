@@ -16,10 +16,11 @@ import 'nprogress/nprogress.css'
 
 let isLogin = true;
 const { Header, Footer, Sider, Content } = Layout
-const LoginOutBtn = () => {
-  let history = useHistory();
-  return <button onClick={() => { isLogin = false; history.push("/login") }}>退出登录</button>
-}
+// const LoginOutBtn = () => {
+//   let history = useHistory();
+//   return <button onClick={() => { isLogin = false; history.push("/login") }}>退出登录</button>
+//   ele={LoginOutBtn}
+// }
 Store.subscribe(() => Store.getState())
 class App extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class App extends Component {
                     path={item.path}
                     exact={item.exact || false}
                     // component={item.component}
-                    render={props => <item.component {...props} routes={item.children} ele={LoginOutBtn}></item.component>}
+                    render={props => <item.component {...props} routes={item.children} ></item.component>}
                     key={item.key}
                   ></Route>
                 )

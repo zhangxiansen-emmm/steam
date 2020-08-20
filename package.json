@@ -17,6 +17,7 @@
     "antd": "^4.4.2",
     "antd-theme-generator": "^1.2.4",
     "axios": "^0.19.2",
+    "babel-eslint": "^10.1.0",
     "co-mysql": "^1.0.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
