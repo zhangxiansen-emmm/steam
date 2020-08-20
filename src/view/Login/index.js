@@ -68,7 +68,6 @@ class Login extends Component {
                   rules={[
                     {
                       required: true,
-                      message: 'please input ur password',
                       min: 8,
                       message: '最少8位数',
                     },

@@ -30,6 +30,7 @@ module.exports = {
         changeOrigin: true,
       },
     },
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -70,8 +71,10 @@ module.exports = {
   resolve: {
     alias: {
       '@View': path.resolve(__dirname, 'src/View'),
+      "@Components": path.resolve(__dirname, 'src/Components'),
       '@sequelize': path.resolve(__dirname, 'client/sequelize'),
-      "@utils": path.resolve(__dirname, 'src/utils')
+      "@utils": path.resolve(__dirname, 'src/utils'),
+      "@redux": path.resolve(__dirname, 'src/redux'),
     },
   },
 }

@@ -8,14 +8,13 @@ const Store = (state = false, actions) => {
   switch (type) {
     case 'USERNAME':
       return state = true
-
     default:
       return state
   }
 }
 const isLogin = (state = false, actions) => {
   const { type, value } = actions;
-  if (getCookie('isLogin') ) {
+  if (getCookie('isLogin')) {
     state = getCookie('isLogin');
   } else {
     switch (type) {
@@ -28,7 +27,16 @@ const isLogin = (state = false, actions) => {
   }
   return state
 }
+const clickMenu = (state = [], actions) => {
+  const { type, value } = actions;
+  switch (type) {
+    case 'clickMenu':
+      state.push(value)
+      return state
+    default:
+      return state
+  }
+}
 
 
-
-export default createStore(combineReducers({ Store, isLogin }), applyMiddleware(thunk, logger))
+export default createStore(combineReducers({ Store, isLogin, clickMenu }), applyMiddleware(thunk, logger))

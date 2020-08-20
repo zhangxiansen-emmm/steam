@@ -24,7 +24,7 @@ app.use(async (ctx, next) => {
       where: {
         userId,
         token,
-      },
+      },  
     })
     if (!config) return
     await next()
