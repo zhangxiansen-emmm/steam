@@ -19,6 +19,8 @@ class Login extends Component {
     this.setState({
       loading: true,
     })
+    this.props.loginIn({ type: 1, value: true })
+    return
     // Store.dispatch({ type: 'USERNAME' })
     const { validateFields } = this.refs.form
     validateFields().then((res) => {
@@ -27,7 +29,7 @@ class Login extends Component {
         const { data } = res
         if (data.token) {
           JsCookie.set('token', data.token)
-          this.props.loginIn({ type: 1, value: data.token })
+
           this.setState({
             loading: false,
           })

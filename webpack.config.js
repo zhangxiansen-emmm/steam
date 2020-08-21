@@ -29,6 +29,13 @@ module.exports = {
         },
         changeOrigin: true,
       },
+      '/media/': {
+        target: 'http://localhost:3000/',
+        pathRewrite: {
+          "^/media/": ""
+        },
+        changeOrigin: true
+      }
     },
     historyApiFallback: true
   },
@@ -75,6 +82,7 @@ module.exports = {
       '@sequelize': path.resolve(__dirname, 'client/sequelize'),
       "@utils": path.resolve(__dirname, 'src/utils'),
       "@redux": path.resolve(__dirname, 'src/redux'),
+      "@http": path.resolve(__dirname, './Ajax.js'),
     },
   },
 }

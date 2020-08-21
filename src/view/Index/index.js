@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react'
-import { Layout, Menu, Row, Col, Breadcrumb } from 'antd'
-import { DesktopOutlined } from '@ant-design/icons'
+import { Layout, Menu, Row, Col, Breadcrumb, Input, Button } from 'antd'
+import { DesktopOutlined, SearchOutlined } from '@ant-design/icons'
 import Ajax from '../../../Ajax'
 import {
   BrowserRouter,
@@ -103,6 +103,23 @@ class App extends Component {
     ))
   }
 
+  searchMedia() {
+    const { searchKey } = this.state
+    const params = {
+      keywords: searchKey
+    };
+    Ajax.post('search', params).then(res => {
+      console.log(res)
+      this.props.getAudioUrl({
+        type:'getSongUrl'
+      })
+    })
+  }
+  SearchKey = (e) => {
+    this.setState({
+      searchKey: e.currentTarget.value
+    })
+  }
   render() {
     const { routes, ele } = this.props
     const { currentPath } = this.state
@@ -125,8 +142,21 @@ class App extends Component {
           </Sider>
           <Layout>
             <div className="Header">
+              <Row type='flex' align='middle' justify='center'>
+                <Col span={4}>
+                  音乐专栏
+                </Col>
+                <Col span={8}>
+                  <Input onChange={this.SearchKey} />
+                </Col>
+                <Col span={8}>
+                  <Button onClick={this.searchMedia.bind(this)} type='primary' icon={<SearchOutlined />} shape='round'>Search</Button>
+                </Col>
+              </Row>
               <Row>
-                <Col>12321</Col>
+                <Col>
+                  <audio ></audio>
+                </Col>
               </Row>
               <Breadcrumb>
                 <Breadcrumb.Item onClick={this.historyPath}>
@@ -142,7 +172,7 @@ class App extends Component {
                     exact
                     path={item.path}
                     key={item.key}
-                    component={AsyncComponent(() => import('../Header'))}
+                    component={AsyncComponent(() => import('../UserTranslate'))}
                   ></Route>
                 ))}
               </Switch>
@@ -158,6 +188,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loginOut: (actions) => dispatch(actions),
     clickMenuItem: (actions) => dispatch(actions),
+    getAudioUrl: (actions) => dispatch(actions)
   }
 }
 

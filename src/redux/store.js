@@ -2,6 +2,8 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 import { getCookie, removeCookie, setCookie } from '@utils/cookie'
+import Ajax from '@http'
+
 
 const Store = (state = false, actions) => {
   const { type } = actions
@@ -38,5 +40,12 @@ const clickMenu = (state = [], actions) => {
   }
 }
 
+const songUrl = (state = '', actions) => {
+  const { type, params: value } = actions
+  if (type === 'getSongUrl') {
+    return Ajax.post('/song/url', params)
+  }
+}
 
-export default createStore(combineReducers({ Store, isLogin, clickMenu }), applyMiddleware(thunk, logger))
+
+export default createStore(combineReducers({ Store, isLogin, clickMenu, songUrl }), applyMiddleware(thunk, logger))
