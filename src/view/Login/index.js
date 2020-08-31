@@ -19,9 +19,6 @@ class Login extends Component {
     this.setState({
       loading: true,
     })
-    this.props.loginIn({ type: 1, value: true })
-    return
-    // Store.dispatch({ type: 'USERNAME' })
     const { validateFields } = this.refs.form
     validateFields().then((res) => {
       //res 去除form表单里的value 可以直接进行操作
@@ -29,12 +26,15 @@ class Login extends Component {
         const { data } = res
         if (data.token) {
           JsCookie.set('token', data.token)
-
-          this.setState({
-            loading: false,
-          })
+          this.props.loginIn({ type: 'login', value: true })
         }
       })
+    })
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      loading: false,
     })
   }
 
@@ -54,7 +54,7 @@ class Login extends Component {
               <Form
                 ref="form"
                 onFinish={(val) => this.Submit(val)}
-                initialValues={{ userId: 111 }}
+                initialValues={{ userId: '111' }}
               >
                 <Item
                   name="userId"

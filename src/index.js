@@ -1,6 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import ReactDom from 'react-dom'
-import { BrowserRouter, Route, Switch, redirectTo, useHistory } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  redirectTo,
+  useHistory,
+} from 'react-router-dom'
 import Store from './redux/store'
 import { Provider, connect } from 'react-redux'
 import Ajax from '../Ajax'
@@ -12,9 +18,9 @@ import './assets/my_theme.less'
 import Headers from '@View/Header'
 import Nprogress from 'nprogress'
 import Login from '@View/Login'
+import { getCookie } from '@utils/cookie.js'
 import 'nprogress/nprogress.css'
 
-let isLogin = true;
 const { Header, Footer, Sider, Content } = Layout
 // const LoginOutBtn = () => {
 //   let history = useHistory();
@@ -25,29 +31,47 @@ Store.subscribe(() => Store.getState())
 class App extends Component {
   constructor(props) {
     super()
-    this.state = {
-    }
+    this.state = {}
+  }
+
+  componentDidMount() {
+    this.selectLogin()
+  }
+
+  selectLogin() {
+    Ajax.post('login').then((res) => {
+      console.log(res)
+  
+    })
   }
 
   render() {
-    const { isLogin } = this.props.state;
+    const { isLogin } = this.props.state
+    console.log(isLogin)
     return (
       <Fragment>
         <BrowserRouter>
           <Switch>
-            {
-              isLogin ? Routes.map((item) => {
+            {isLogin ? (
+              Routes.map((item) => {
                 return (
                   <Route
                     path={item.path}
                     exact={item.exact || false}
                     // component={item.component}
-                    render={props => <item.component {...props} routes={item.children} ></item.component>}
+                    render={(props) => (
+                      <item.component
+                        {...props}
+                        routes={item.children}
+                      ></item.component>
+                    )}
                     key={item.key}
                   ></Route>
                 )
-              }) : <Login />
-            }
+              })
+            ) : (
+              <Login />
+            )}
           </Switch>
         </BrowserRouter>
       </Fragment>
@@ -55,12 +79,12 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return { state }
 }
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    addClick: (actions) => dispatch(actions)
+    addClick: (actions) => dispatch(actions),
   }
 }
 const Root = connect(mapStateToProps, mapDispatchToProps)(App)
@@ -69,4 +93,6 @@ const Root = connect(mapStateToProps, mapDispatchToProps)(App)
 ReactDom.render(
   <Provider store={Store}>
     <Root />
-  </Provider>, document.querySelector('#root'))
+  </Provider>,
+  document.querySelector('#root')
+)

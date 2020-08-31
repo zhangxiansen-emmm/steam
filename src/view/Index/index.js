@@ -1,7 +1,22 @@
 import React, { Fragment, Component } from 'react'
-import { Layout, Menu, Row, Col, Breadcrumb, Input, Button } from 'antd'
-import { DesktopOutlined, SearchOutlined } from '@ant-design/icons'
+import {
+  Layout,
+  Menu,
+  Row,
+  Col,
+  Breadcrumb,
+  Input,
+  Button,
+  Dropdown,
+  Avatar,
+} from 'antd'
+import {
+  DesktopOutlined,
+  SearchOutlined,
+  UserOutlined,
+} from '@ant-design/icons'
 import Ajax from '../../../Ajax'
+import proxyAudio from '../../../getAudio'
 import {
   BrowserRouter,
   Route,
@@ -52,7 +67,7 @@ class App extends Component {
     // })
   }
   onCollapse(toggle) {
-    this.props.loginOut({ type: 0, value: false })
+    // this.props.loginOut({ type: 0, value: false })
     this.setState({
       collapsed: toggle,
     })
@@ -88,10 +103,10 @@ class App extends Component {
   historyPath = (e) => {
     const node = e.currentTarget
     const currentPath = [node.getAttribute('index')]
+    console.log(currentPath)
     this.setState({
       currentPath,
     })
-    console.log(currentPath)
   }
 
   subMenuItem() {
@@ -106,24 +121,44 @@ class App extends Component {
   searchMedia() {
     const { searchKey } = this.state
     const params = {
-      keywords: searchKey
-    };
-    Ajax.post('search', params).then(res => {
+      keywords: searchKey,
+    }
+    console.log(proxyAudio)
+    proxyAudio.post('search', params).then((res) => {
       console.log(res)
-      this.props.getAudioUrl({
-        type:'getSongUrl'
+      this.props.setAudioData({
+        type: 'setAudioData',
+        value: res.result.songs,
       })
     })
   }
   SearchKey = (e) => {
     this.setState({
-      searchKey: e.currentTarget.value
+      searchKey: e.currentTarget.value,
     })
   }
   render() {
+    const menu = () => {
+      const whowClick = (e) => {
+        if (e.key === 'login:out') {
+          this.props.loginOut({
+            type: 'login:out',
+            value: false,
+          })
+          Store.subscribe(() => Store.getState())
+        }
+      }
+      return (
+        <Menu onClick={whowClick}>
+          <Menu.Item key="seeMyInfo">查看个人信息</Menu.Item>
+          <Menu.Item key="login:out">退出登录</Menu.Item>
+        </Menu>
+      )
+    }
     const { routes, ele } = this.props
     const { currentPath } = this.state
     const { clickMenu } = this.props.state
+    console.log(this.props)
     return (
       <Fragment>
         <Layout className="container">
@@ -142,20 +177,30 @@ class App extends Component {
           </Sider>
           <Layout>
             <div className="Header">
-              <Row type='flex' align='middle' justify='center'>
-                <Col span={4}>
-                  音乐专栏
-                </Col>
-                <Col span={8}>
+              <Row type="flex" align="middle" justify="end">
+                <Col span={2}>音乐专栏</Col>
+                <Col span={3}>
                   <Input onChange={this.SearchKey} />
                 </Col>
-                <Col span={8}>
-                  <Button onClick={this.searchMedia.bind(this)} type='primary' icon={<SearchOutlined />} shape='round'>Search</Button>
+                <Col span={2}>
+                  <Button
+                    onClick={this.searchMedia.bind(this)}
+                    type="primary"
+                    icon={<SearchOutlined />}
+                    shape="round"
+                  >
+                    Search
+                  </Button>
                 </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <audio ></audio>
+                <Col span={1}>
+                  <Dropdown overlay={menu()} trigger="click">
+                    <Avatar
+                      shape="square"
+                      style={{ background: '#096dd9' }}
+                      size={64}
+                      icon={<UserOutlined />}
+                    />
+                  </Dropdown>
                 </Col>
               </Row>
               <Breadcrumb>
@@ -173,7 +218,8 @@ class App extends Component {
                     path={item.path}
                     key={item.key}
                     component={AsyncComponent(() => import('../UserTranslate'))}
-                  ></Route>
+                  >
+                  </Route>
                 ))}
               </Switch>
             </Content>
@@ -188,7 +234,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loginOut: (actions) => dispatch(actions),
     clickMenuItem: (actions) => dispatch(actions),
-    getAudioUrl: (actions) => dispatch(actions)
+    getAudioUrl: (actions) => dispatch(actions),
+    setAudioData: (actions) => dispatch(actions),
   }
 }
 

@@ -2,35 +2,35 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 import { getCookie, removeCookie, setCookie } from '@utils/cookie'
-import Ajax from '@http'
+import proxyAudio from '../../getAudio'
+import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 
-
+const composeEnhancers = composeWithDevTools({
+  // options like actionSanitizer, stateSanitizer
+})
 const Store = (state = false, actions) => {
   const { type } = actions
   switch (type) {
     case 'USERNAME':
-      return state = true
+      return (state = true)
     default:
       return state
   }
 }
 const isLogin = (state = false, actions) => {
-  const { type, value } = actions;
-  if (getCookie('isLogin')) {
-    state = getCookie('isLogin');
-  } else {
-    switch (type) {
-      case 0:
-        removeCookie('isLogin');
-      case 1:
-        setCookie('isLogin', true)
-    }
-    state = Boolean(value)
+  const { type, value } = actions
+  switch (type) {
+    case 'login:out':
+      console.log(1)
+      removeCookie('isLogin')
+    case 'login':
+      setCookie('isLogin', true)
   }
-  return state
+  return getCookie('isLogin') || false
 }
+
 const clickMenu = (state = [], actions) => {
-  const { type, value } = actions;
+  const { type, value } = actions
   switch (type) {
     case 'clickMenu':
       state.push(value)
@@ -41,11 +41,32 @@ const clickMenu = (state = [], actions) => {
 }
 
 const songUrl = (state = '', actions) => {
-  const { type, params: value } = actions
+  const { type, value } = actions
   if (type === 'getSongUrl') {
-    return Ajax.post('/song/url', params)
+    const params = Object.assign(value)
+    proxyAudio.post('/song/url', params).then((res) => {
+      console.log(res)
+      state = res
+    })
+    return state
+  }
+  return state
+}
+
+const AudioData = (state = [], actions) => {
+  const { type, value } = actions
+  switch (type) {
+    case 'setAudioData':
+      state = value
+      return state
+    case 'getAudioData':
+      return state
+    default:
+      return []
   }
 }
 
-
-export default createStore(combineReducers({ Store, isLogin, clickMenu, songUrl }), applyMiddleware(thunk, logger))
+export default createStore(
+  combineReducers({ Store, isLogin, clickMenu, songUrl, AudioData }),
+  composeEnhancers(applyMiddleware(thunk, logger))
+)

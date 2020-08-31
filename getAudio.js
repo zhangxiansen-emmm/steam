@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { getCookie } from '@utils/cookie.js'
 
-const Ajax = axios.create({
+const proxyAudio = axios.create({
   timeout: 1000,
-  baseURL: '/api/',
+  baseURL: '/media/',
 })
 
-Ajax.interceptors.request.use((config) => {
+proxyAudio.interceptors.request.use((config) => {
   console.log(config)
   const _t = new Date() / 1000
   config.headers['_t'] = _t
@@ -14,8 +14,8 @@ Ajax.interceptors.request.use((config) => {
   return config
 })
 
-Ajax.interceptors.response.use((config) => {
-  return config
+proxyAudio.interceptors.response.use((config) => {
+  return config.data
 })
 
-export default Ajax
+export default proxyAudio
