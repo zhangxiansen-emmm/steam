@@ -15,6 +15,7 @@ proxyAudio.interceptors.request.use((config) => {
 })
 
 proxyAudio.interceptors.response.use((config) => {
+  console.log(config)
   return config.data
 })
 

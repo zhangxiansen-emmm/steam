@@ -83,6 +83,7 @@ module.exports = {
       "@utils": path.resolve(__dirname, 'src/utils'),
       "@redux": path.resolve(__dirname, 'src/redux'),
       "@http": path.resolve(__dirname, './Ajax.js'),
+      '@getAudio': path.resolve(__dirname, './getAudio.js')
     },
   },
 }
