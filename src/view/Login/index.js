@@ -21,6 +21,9 @@ class Login extends Component {
     })
     const { validateFields } = this.refs.form
     validateFields().then((res) => {
+      JsCookie.set('token', 1)
+      this.props.loginIn({ type: 'login', value: true })
+      return
       //res 去除form表单里的value 可以直接进行操作
       Ajax.post('login', val).then((res) => {
         const { data } = res

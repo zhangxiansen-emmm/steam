@@ -5,13 +5,12 @@ export default (component) => {
   return class AsyncComponent extends React.Component {
     constructor(props) {
       super()
-      console.log(props)
       this.state = {
         component: null,
       }
     }
 
-    async componentWillMount() {
+    async UNSAFE_componentWillMount() {
       const nodes = await component()
       this.setState({
         component: nodes.default,

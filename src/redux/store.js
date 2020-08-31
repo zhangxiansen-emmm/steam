@@ -3,11 +3,11 @@ import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 import { getCookie, removeCookie, setCookie } from '@utils/cookie'
 import proxyAudio from '../../getAudio'
-import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
+// import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 
-const composeEnhancers = composeWithDevTools({
+// const composeEnhancers = composeWithDevTools({
   // options like actionSanitizer, stateSanitizer
-})
+// })
 const Store = (state = false, actions) => {
   const { type } = actions
   switch (type) {
@@ -23,6 +23,7 @@ const isLogin = (state = false, actions) => {
     case 'login:out':
       console.log(1)
       removeCookie('isLogin')
+      removeCookie('token')
     case 'login':
       setCookie('isLogin', true)
   }
@@ -62,11 +63,11 @@ const AudioData = (state = [], actions) => {
     case 'getAudioData':
       return state
     default:
-      return []
+      return state
   }
 }
 
 export default createStore(
   combineReducers({ Store, isLogin, clickMenu, songUrl, AudioData }),
-  composeEnhancers(applyMiddleware(thunk, logger))
+  applyMiddleware(thunk, logger)
 )

@@ -9,12 +9,14 @@ import {
   Button,
   Dropdown,
   Avatar,
+  Progress
 } from 'antd'
 import {
   DesktopOutlined,
   SearchOutlined,
   UserOutlined,
 } from '@ant-design/icons'
+
 import Ajax from '../../../Ajax'
 import proxyAudio from '../../../getAudio'
 import {
@@ -32,7 +34,7 @@ import Store from '@redux/store'
 const { Header, Footer, Sider, Content } = Layout
 const { Item } = Menu
 import AsyncComponent from '@Components/AsyncComponent'
-
+import Modal from '@Components/Modal'
 class App extends Component {
   constructor(props) {
     super()
@@ -55,11 +57,12 @@ class App extends Component {
         },
       ],
       currentPath: [],
+      visible: false,
+      percent: 0
     }
     Store.subscribe(() => Store.getState())
   }
-
-  componentWillMount() {
+  UNSAFE_componentDidMount() {
     // const params = {}
     // Ajax.post('users/menu', params).then(res => { })
     // this.setState({
@@ -108,7 +111,14 @@ class App extends Component {
       currentPath,
     })
   }
-
+  handleOk = () => {
+    this.handleCancel()
+  }
+  handleCancel = () => {
+    this.setState({
+      visible: false
+    })
+  }
   subMenuItem() {
     // https://www.baidu.com/link?url=KL7WoERnaXkySyH9iGM2IJLQG22JTOZPRX8KFvn5iCzXU8IKp4N8REe4bjJ66p_OJIBbtZzrFFQ3i-DzG5X537O6AZPQpzfiITDnRThkCQp8otQK91iHmCMfoJo1u-4pvXYmWSY4flaOQYz-2VbVLNjOBl21PyNpHMnVQ8HkNHXuJgb6vsNaanH1jB1e3OHXOvTDhMZgikfDquqHfinq6ti0jaNyVQPq0HOktChHjbOON0mZtfQulUOhwDlGvm-RsVXAW57iWhV28w-F5BjuNyhMdFIJ6SBBcAFlHi3UG7pD87oMaaJSEk5mCirUwPXLzBJBXa7w5gmwg02__r3mc4Ql9mOum5hRNT_5E-dtHQ4Xd7S5lvg55Xb_Seu6m8d7DcCq_c90SZRNaliq3bZFQq0A_7CiFFXrwmxO4u3jYqySlYkFTLOgbTYnNQWo-UPOuiSD2rgx-ijsLy1FoqKp5RU_q05R44JeAqY3-5MjPh7llc4ilA_WK751pvSJCFcJ7k43RuCnqjTd-tKxLJjDGsgTtfDK4dZ2RWD_mm1pjbve3npDp00ulqpOY1BmlWajmiVGnKIJ9q5WkOA-2okbPzfte5zZufYJJUUduW9_voW&timg=&click_t=1597652287135&s_info=1349_625&wd=&eqid=e90a060c0000080a000000035f3a3d35
     return this.state.menu.map((item) => (
@@ -140,12 +150,21 @@ class App extends Component {
   render() {
     const menu = () => {
       const whowClick = (e) => {
-        if (e.key === 'login:out') {
-          this.props.loginOut({
-            type: 'login:out',
-            value: false,
-          })
-          Store.subscribe(() => Store.getState())
+        console.log(e)
+        switch (true) {
+          case e.key === 'seeMyInfo':
+            console.log(e.key)
+            this.setState({
+              visible: true
+            })
+            return
+          case e.key === 'login:out':
+            this.props.loginOut({
+              type: 'login:out',
+              value: false,
+            })
+            Store.subscribe(() => Store.getState())
+            return
         }
       }
       return (
@@ -158,7 +177,6 @@ class App extends Component {
     const { routes, ele } = this.props
     const { currentPath } = this.state
     const { clickMenu } = this.props.state
-    console.log(this.props)
     return (
       <Fragment>
         <Layout className="container">
@@ -209,6 +227,9 @@ class App extends Component {
                 </Breadcrumb.Item>
                 {this.breadcrumbItem()}
               </Breadcrumb>
+              <audio preload='auto' ref='audio'
+                play={this.state.play}
+                autoPlay={true} controls style={{ display: 'none', width: 200, height: 100 }}></audio>
             </div>
             <Content>
               <Switch>
@@ -225,6 +246,16 @@ class App extends Component {
             </Content>
           </Layout>
         </Layout>
+
+
+        <Modal
+          title="Basic Modal"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <Progress type="circle" percent={this.state.percent}></Progress>
+        </Modal>
       </Fragment>
     )
   }

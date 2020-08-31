@@ -34,14 +34,14 @@ class App extends Component {
     this.state = {}
   }
 
-  componentDidMount() {
+  UNSAFE_componentDidMount() {
     this.selectLogin()
   }
 
   selectLogin() {
     Ajax.post('login').then((res) => {
       console.log(res)
-  
+
     })
   }
 
@@ -70,8 +70,8 @@ class App extends Component {
                 )
               })
             ) : (
-              <Login />
-            )}
+                <Login />
+              )}
           </Switch>
         </BrowserRouter>
       </Fragment>
