@@ -153,7 +153,6 @@ class App extends Component {
         console.log(e)
         switch (true) {
           case e.key === 'seeMyInfo':
-            console.log(e.key)
             this.setState({
               visible: true
             })
