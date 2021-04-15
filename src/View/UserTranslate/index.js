@@ -7,10 +7,13 @@ import './index.less'
 
 export default (props) => {
     const AudioData = useSelector(state => state.AudioData)
+    console.log(AudioData);
     const musicList = (item) => {
-        console.log(item)
         const playing = () => {
                 
+        }
+        const switchPlay = () =>{
+            
         }
         return (
             <Row type='flex' align='middle' key={item.id} data-key={item.id} onClick={switchPlay} className='musicItem'>

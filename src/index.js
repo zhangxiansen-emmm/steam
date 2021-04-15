@@ -40,14 +40,12 @@ class App extends Component {
 
   selectLogin() {
     Ajax.post('login').then((res) => {
-      console.log(res)
 
     })
   }
 
   render() {
     const { isLogin } = this.props.state
-    console.log(isLogin)
     return (
       <Fragment>
         <BrowserRouter>
@@ -58,16 +56,14 @@ class App extends Component {
                   <Route
                     path={item.path}
                     exact={item.exact || false}
-                    // component={item.component}
+                    // component={<item.component {...props}></item.component>}
                     render={(props) => (
-                      <item.component
-                        {...props}
-                        routes={item.children}
-                      ></item.component>
+                      <item.component {...props} routes={item.children}>
+                      </item.component>
                     )}
                     key={item.key}
                   ></Route>
-                )
+                );
               })
             ) : (
                 <Login />

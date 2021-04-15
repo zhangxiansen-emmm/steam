@@ -133,7 +133,6 @@ class App extends Component {
     const params = {
       keywords: searchKey,
     }
-    console.log(proxyAudio)
     proxyAudio.post('search', params).then((res) => {
       console.log(res)
       this.props.setAudioData({
@@ -174,13 +173,14 @@ class App extends Component {
       )
     }
     const { routes, ele } = this.props
+    console.log(routes);
     const { currentPath } = this.state
     const { clickMenu } = this.props.state
     return (
       <Fragment>
         <Layout className="container">
           <Sider
-            style={{ background: '#fff' }}
+            style={{ background: "#fff" }}
             collapsible
             collapsed={this.state.collapsed}
             onCollapse={this.onCollapse.bind(this)}
@@ -197,12 +197,13 @@ class App extends Component {
               <Row type="flex" align="middle" justify="end">
                 <Col span={2}>音乐专栏</Col>
                 <Col span={3}>
-                  <Input onChange={this.SearchKey} />
+                  <Input onChange={this.SearchKey} className="radius" />
                 </Col>
                 <Col span={2}>
                   <Button
                     onClick={this.searchMedia.bind(this)}
                     type="primary"
+                    className="buttonRadius"
                     icon={<SearchOutlined />}
                     shape="round"
                   >
@@ -213,7 +214,7 @@ class App extends Component {
                   <Dropdown overlay={menu()} trigger="click">
                     <Avatar
                       shape="square"
-                      style={{ background: '#096dd9' }}
+                      style={{ background: "#096dd9" }}
                       size={64}
                       icon={<UserOutlined />}
                     />
@@ -226,9 +227,14 @@ class App extends Component {
                 </Breadcrumb.Item>
                 {this.breadcrumbItem()}
               </Breadcrumb>
-              <audio preload='auto' ref='audio'
+              <audio
+                preload="auto"
+                ref="audio"
                 play={this.state.play}
-                autoPlay={true} controls style={{ display: 'none', width: 200, height: 100 }}></audio>
+                autoPlay={true}
+                controls
+                style={{ display: "none", width: 200, height: 100 }}
+              ></audio>
             </div>
             <Content>
               <Switch>
@@ -237,16 +243,14 @@ class App extends Component {
                     exact
                     path={item.path}
                     key={item.key}
-                    component={AsyncComponent(() => import('../UserTranslate'))}
-                  >
-                  </Route>
+                    component={AsyncComponent(() => item.component())}
+                  ></Route>
                 ))}
               </Switch>
-              <audio controls='controls' ></audio>
+              <audio controls="controls"></audio>
             </Content>
           </Layout>
         </Layout>
-
 
         <Modal
           title="Basic Modal"
@@ -257,7 +261,7 @@ class App extends Component {
           <Progress type="circle" percent={this.state.percent}></Progress>
         </Modal>
       </Fragment>
-    )
+    );
   }
 }
 
