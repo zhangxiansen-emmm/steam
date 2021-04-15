@@ -67,7 +67,28 @@ const AudioData = (state = [], actions) => {
   }
 }
 
+const playMusicUrl = (state = '',actions) => {
+  const { type, value } = actions   
+  switch(type){
+    case 'setMusic':
+      state = value;
+      return state
+    case 'getMusic':
+      return state
+    default:
+      return state
+  }
+}
+
+
 export default createStore(
-  combineReducers({ Store, isLogin, clickMenu, songUrl, AudioData }),
+  combineReducers({
+    Store,
+    isLogin,
+    clickMenu,
+    songUrl,
+    AudioData,
+    playMusicUrl,
+  }),
   applyMiddleware(thunk, logger)
-)
+);

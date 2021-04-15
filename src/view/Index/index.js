@@ -35,11 +35,13 @@ const { Header, Footer, Sider, Content } = Layout
 const { Item } = Menu
 import AsyncComponent from '@Components/AsyncComponent'
 import Modal from '@Components/Modal'
+import store from '../../redux/store'
 class App extends Component {
   constructor(props) {
     super()
     this.state = {
       collapsed: false,
+      searchKey:'outside',
       menu: [
         {
           path: '/app/userTranslate',
@@ -58,9 +60,16 @@ class App extends Component {
       ],
       currentPath: [],
       visible: false,
-      percent: 0
+      percent: 50,
+      url:store.getState().playMusicUrl
     }
-    Store.subscribe(() => Store.getState())
+    store.subscribe(() => store.getState());
+  }
+  componentDidUpdate(){
+    if(this.state.url !== store.getState().playMuplayedsicUrl){
+      // this.refs.audio.src = store.getState().playMusicUrl;
+      // console.log(this.refs.audio.play())
+    }
   }
   UNSAFE_componentDidMount() {
     // const params = {}
@@ -106,7 +115,6 @@ class App extends Component {
   historyPath = (e) => {
     const node = e.currentTarget
     const currentPath = [node.getAttribute('index')]
-    console.log(currentPath)
     this.setState({
       currentPath,
     })
@@ -127,14 +135,19 @@ class App extends Component {
       </Item>
     ))
   }
-
+  ScorllHeader(e){
+    console.log(this.refs.Header.clientHeight, e.target.scrollTop);
+    this.refs.Header.className =
+      "Header" +( e.target.scrollTop > this.refs.Header.clientHeight
+        ? " Fixed"
+        : "");
+  }
   searchMedia() {
     const { searchKey } = this.state
     const params = {
       keywords: searchKey,
     }
     proxyAudio.post('search', params).then((res) => {
-      console.log(res)
       this.props.setAudioData({
         type: 'setAudioData',
         value: res.result.songs,
@@ -143,10 +156,12 @@ class App extends Component {
   }
   SearchKey = (e) => {
     this.setState({
-      searchKey: e.currentTarget.value,
+      searchKey: e.currentTarget.value ,
     })
   }
   render() {
+    const playdUrl = store.getState().playMusicUrl
+    console.log(playdUrl);
     const menu = () => {
       const whowClick = (e) => {
         console.log(e)
@@ -173,7 +188,6 @@ class App extends Component {
       )
     }
     const { routes, ele } = this.props
-    console.log(routes);
     const { currentPath } = this.state
     const { clickMenu } = this.props.state
     return (
@@ -192,8 +206,8 @@ class App extends Component {
               {this.subMenuItem()}
             </Menu>
           </Sider>
-          <Layout>
-            <div className="Header">
+          <Layout onScroll={this.ScorllHeader.bind(this)}>
+            <div className="Header" ref="Header">
               <Row type="flex" align="middle" justify="end">
                 <Col span={2}>音乐专栏</Col>
                 <Col span={3}>
@@ -227,14 +241,6 @@ class App extends Component {
                 </Breadcrumb.Item>
                 {this.breadcrumbItem()}
               </Breadcrumb>
-              <audio
-                preload="auto"
-                ref="audio"
-                play={this.state.play}
-                autoPlay={true}
-                controls
-                style={{ display: "none", width: 200, height: 100 }}
-              ></audio>
             </div>
             <Content>
               <Switch>
@@ -247,7 +253,15 @@ class App extends Component {
                   ></Route>
                 ))}
               </Switch>
-              <audio controls="controls"></audio>
+              <audio
+                // preload="auto"
+                ref="audio"
+                src={playdUrl}
+                // play={this.state.play}
+                // autoPlay={true}
+                controls
+                style={{ display: "block", width: '100%', height: 100 }}
+              ></audio>
             </Content>
           </Layout>
         </Layout>

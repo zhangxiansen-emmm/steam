@@ -11,12 +11,9 @@ export default (component) => {
     }
 
     async UNSAFE_componentWillMount() {
-      console.log(component);
       const nodes = await component()
       this.setState({
         component: nodes.default,
-      },()=>{
-        console.log(this.state)
       })
 
     }

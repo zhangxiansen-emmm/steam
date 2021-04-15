@@ -1,7 +1,6 @@
 import React from 'react'
 import App from '@View/Index'
 import Login from '@View/Login'
-import UserTranslate from "@View/UserTranslate";
 
 const routes = [
   {
@@ -20,6 +19,12 @@ const routes = [
         path: "/app/userTranslate",
         component: () => import("@View/UserTranslate"),
         key: "userTranslate",
+        exact: true,
+      },
+      {
+        path: "/app/Draggable",
+        component: () => import("@View/Draggable"),
+        key: "Draggable",
         exact: true,
       },
     ],
