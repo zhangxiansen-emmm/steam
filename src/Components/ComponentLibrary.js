@@ -4,7 +4,9 @@ import * as Icon  from "@ant-design/icons";
 const { UserOutlined } = Icon;
 
 // {elementType:'div',isRouter:true,path:'xxx/xxx/xxx',text:'xxxx',title:'xxxx',}
-
+Object.keys(element).forEach(item=>{
+  console.log(item)
+})
 export default () => {
   
 
