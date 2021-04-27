@@ -2,11 +2,13 @@
 // 使用一个元素模拟b端页面
 // 然后可以点击并且可以拖拽
 import React, { useState } from "react";
-import { Row,Col } from 'antd'
+import Antd , { Row,Col } from 'antd'
 import ComponentLibrary from "@Components/ComponentLibrary";
 import './index.less'
 
 export default () => {
+    console.log(Antd,'21321321')
+
     const [target,setTarget] = useState(null)
     const [[left,right],setPos] = useState([])
 
@@ -17,11 +19,7 @@ export default () => {
 
     const keyDown = (e) =>{
       setTarget(e.target)
-      console.log(e.target.className.indexOf("capture")>0);
-      console.log(e.target.getBoundingClientRect());
-       e.target.onmousemove = ({ target }) => {
-        //  console.log(target);
-       };
+
     }
     const keyUp = (e) => {
         target.onmousemove = null

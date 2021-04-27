@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -45,6 +46,7 @@ module.exports = {
       hash: true
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new DashboardPlugin()
   ],
   module: {
     rules: [

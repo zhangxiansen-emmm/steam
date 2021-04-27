@@ -21,11 +21,14 @@ const isLogin = (state = false, actions) => {
   const { type, value } = actions
   switch (type) {
     case 'login:out':
-      console.log(1)
       removeCookie('isLogin')
       removeCookie('token')
+      state = value
+      break 
     case 'login':
+      state = value
       setCookie('isLogin', true)
+      break
   }
   return getCookie('isLogin') || false
 }

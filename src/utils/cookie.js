@@ -2,7 +2,7 @@ import { notification } from 'antd'
 const getCookie = (key) => {
   let state = null
   if (localStorage.getItem(key)) {
-    state = localStorage.getItem(key)
+    state = JSON.parse(localStorage.getItem(key))
   }
   return state
 }
@@ -19,7 +19,6 @@ const removeCookie = (key) => {
       message: '删除失败',
     },
   }
-  console.log(key)
   try {
     localStorage.removeItem(key)
   } catch (e) {

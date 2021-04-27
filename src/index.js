@@ -31,6 +31,7 @@ Store.subscribe(() => Store.getState())
 class App extends Component {
   constructor(props) {
     super()
+    console.log(props)
     this.state = {}
   }
 
@@ -50,7 +51,7 @@ class App extends Component {
       <Fragment>
         <BrowserRouter>
           <Switch>
-            {isLogin ? (
+            {JSON.parse(isLogin || 'false') ? (
               Routes.map((item) => {
                 return (
                   <Route
@@ -74,7 +75,6 @@ class App extends Component {
     )
   }
 }
-
 const mapStateToProps = (state) => {
   return { state }
 }

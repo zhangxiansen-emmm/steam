@@ -3,7 +3,8 @@ import * as element from "antd";
 import * as Icon  from "@ant-design/icons";
 const { UserOutlined } = Icon;
 
-// {elementType:'div',isRouter:true,path:'xxx/xxx/xxx',text:'xxxx',title:'xxxx',}
+// {elementType:'div',isRouter:true,path:'xxx/xxx/xxx',text:'xxxx',title:'xxxx',}3
+console.log(element)
 Object.keys(element).forEach(item=>{
   console.log(item)
 })

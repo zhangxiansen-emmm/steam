@@ -164,7 +164,6 @@ class App extends Component {
     console.log(playdUrl);
     const menu = () => {
       const whowClick = (e) => {
-        console.log(e)
         switch (true) {
           case e.key === 'seeMyInfo':
             this.setState({
@@ -176,7 +175,6 @@ class App extends Component {
               type: 'login:out',
               value: false,
             })
-            Store.subscribe(() => Store.getState())
             return
         }
       }
