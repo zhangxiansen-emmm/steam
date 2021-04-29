@@ -20,7 +20,8 @@ import Nprogress from 'nprogress'
 import Login from '@View/Login'
 import { getCookie } from '@utils/cookie.js'
 import 'nprogress/nprogress.css'
-
+import Modal from '@Components/Modal'
+console.log(Modal,'Modal')
 const { Header, Footer, Sider, Content } = Layout
 // const LoginOutBtn = () => {
 //   let history = useHistory();

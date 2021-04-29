@@ -1,7 +1,7 @@
 import React from 'react'
 import App from '@View/Index'
 import Login from '@View/Login'
-
+import config from './config'
 const routes = [
   {
     path: "/",

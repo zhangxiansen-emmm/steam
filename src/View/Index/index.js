@@ -60,6 +60,7 @@ class App extends Component {
       ],
       currentPath: [],
       visible: false,
+      showModal:false,
       percent: 50,
       url:store.getState().playMusicUrl
     }
@@ -118,6 +119,11 @@ class App extends Component {
     this.setState({
       currentPath,
     })
+  }
+  ShowModal(){
+      this.setState({
+        showModal:true
+      })
   }
   handleOk = () => {
     this.handleCancel()
@@ -251,6 +257,15 @@ class App extends Component {
                   ></Route>
                 ))}
               </Switch>
+              <Button
+                    onClick={this.ShowModal.bind(this)}
+                    type="primary"
+                    className="buttonRadius"
+                    icon={<SearchOutlined />}
+                    shape="round"
+                  >
+                    showModal
+                  </Button>
               <audio
                 // preload="auto"
                 ref="audio"
@@ -264,13 +279,8 @@ class App extends Component {
           </Layout>
         </Layout>
 
-        <Modal
-          title="Basic Modal"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-        >
-          <Progress type="circle" percent={this.state.percent}></Progress>
+        <Modal visible={this.state.showModal}>
+            这个是封装的Modal
         </Modal>
       </Fragment>
     );
