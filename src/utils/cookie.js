@@ -24,7 +24,7 @@ const removeCookie = (key) => {
   } catch (e) {
     type = 'error'
   }
-  return notification[type](option[type])
+  return notification[type](option[type]) 
 }
 
 export { getCookie, setCookie, removeCookie }

@@ -36,6 +36,7 @@ const { Item } = Menu
 import AsyncComponent from '@Components/AsyncComponent'
 import Modal from '@Components/Modal'
 import store from '../../redux/store'
+
 class App extends Component {
   constructor(props) {
     super()
@@ -73,6 +74,7 @@ class App extends Component {
     }
   }
   UNSAFE_componentDidMount() {
+    
     // const params = {}
     // Ajax.post('users/menu', params).then(res => { })
     // this.setState({
@@ -121,6 +123,7 @@ class App extends Component {
     })
   }
   ShowModal(){
+      console.log(Modal.confirm())
       this.setState({
         showModal:true
       })
@@ -164,6 +167,11 @@ class App extends Component {
     this.setState({
       searchKey: e.currentTarget.value ,
     })
+  }
+  modalCencel=()=>{
+      this.setState({
+        showModal:false
+      })
   }
   render() {
     const playdUrl = store.getState().playMusicUrl
@@ -279,7 +287,7 @@ class App extends Component {
           </Layout>
         </Layout>
 
-        <Modal visible={this.state.showModal}>
+        <Modal visible={this.state.showModal} footer={null} drag onCencel={this.modalCencel} >
             这个是封装的Modal
         </Modal>
       </Fragment>
