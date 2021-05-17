@@ -31,15 +31,15 @@ class Modal extends Component {
         let { pageX, pageY } = this.getPostion(e)
 
         this.setState({
-            moveX: pageX - this.state.x - this.state.clickX,
-            moveY: pageY - this.state.y - this.state.clickY
+            moveX: pageX - this.state.clickX,
+            moveY: pageY - this.state.clickY
         })
         console.log(pageX, pageY)
     }
 
     up = () => {
         window.onmousemove = null
-        console.log( window.onmousemove)
+        console.log(window.onmousemove)
         return false
     }
 
@@ -60,6 +60,9 @@ class Modal extends Component {
 
 
     render() {
+        let { moveX: left, moveY: top } = this.state
+        let styles = { left, top }
+        console.log(styles)
         const { props } = this
         return (
             <div>
@@ -69,7 +72,7 @@ class Modal extends Component {
                     }
 
                 </div>
-                { this.props.visible ? (<div className='React-Modal-Content' id='Modal' ref='modal'>
+                { this.props.visible ? (<div className='React-Modal-Content' style={styles} id='Modal' ref='modal'>
                     <div className='React-Modal-Header' onMouseUp={this.up.bind(this)} onMouseDown={props.drag && this.down.bind(this)}>
                         {props.title || '头部'}
                         <span> <CloseOutlined onClick={this.onHideModal.bind(this)} /> </span>
