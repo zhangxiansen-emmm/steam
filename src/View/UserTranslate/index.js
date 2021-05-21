@@ -11,16 +11,17 @@ export default (props) => {
     const AudioData = useSelector(state => state.AudioData)
     const musicList = (item) => {
         const playing = (item) => {
-          getAudio
-            .get("/song/url", {
-              params: {
-                id: item.id,
-              },
-            })
-            .then((res) => {
-                 dispatch({ type: "setMusic", value: res.data[0].url });
-            }); 
-         
+            getAudio
+                .get("/song/url", {
+                    params: {
+                        id: item.id,
+                    },
+                })
+                .then((res) => {
+                    dispatch({ type: 'setSongId', value: item.id })
+                    dispatch({ type: "setMusic", value: res.data[0].url });
+                });
+
         }
         return (
             <Row type='flex' align='middle' key={item.id} data-key={item.id} className='musicItem'>
@@ -29,7 +30,7 @@ export default (props) => {
                     <Space size={'size'}>{item.artists.map((songsInfo, index) => (<span className='songName' key={songsInfo.name}>{songsInfo.name}{index === item.artists.length - 1 ? '' : ' / '}</span>))}</Space>
                 </Col>
                 <Col span={6} className='musicItem_Icon'>
-                    <PlayCircleOutlined onClick={()=>playing(item)}/>
+                    <PlayCircleOutlined onClick={() => playing(item)} />
                 </Col>
             </Row>
         )

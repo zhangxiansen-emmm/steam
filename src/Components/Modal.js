@@ -61,9 +61,8 @@ class Modal extends Component {
 
     render() {
         let { moveX: left, moveY: top } = this.state
-        let styles = { left, top }
-        console.log(styles)
         const { props } = this
+        const styles = { left, top, cursor: props.drag ? 'move' : 'none' }
         return (
             <div>
                 <div className='React-Modal-Context' >

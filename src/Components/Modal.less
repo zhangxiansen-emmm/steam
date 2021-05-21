@@ -1,41 +1,41 @@
-.React-Modal-Context{
-    .React-Modal-Mask{
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 2;
-        background: rgba(0, 0, 0, 0.7);
-    }
-    
-}
-.React-Modal-Content{
+.React-Modal-Context {
+  .React-Modal-Mask {
     position: fixed;
-    left: 50%;
-    top: 50%;
-    width: 560px;
-    border-radius: 4px;
-    // transform: translateX(-50%) translateY(-50%);
-    // transition: .4s;
-    z-index: 5;
-    background: #fff;
-    .React-Modal-Header{
-        cousor:move;
-        
-        padding: 8px 20px;
-        border-bottom: 1px solid #c8c8c8;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .React-Modal-Body{
-        padding: 20px;
-    }
-    .React-Modal-Footer{
-        padding: 5px 8px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9;
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+.React-Modal-Content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 560px;
+
+  border-radius: 4px;
+  // transform: translateX(-50%) translateY(-50%);
+  // transition: .4s;
+  z-index: 19;
+  background: #fff;
+  .React-Modal-Header {
+    padding: 8px 20px;
+    border-bottom: 1px solid #c8c8c8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .React-Modal-Body {
+    height: 470px;
+    padding: 20px;
+    overflow: auto;
+  }
+  .React-Modal-Footer {
+    padding: 5px 8px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
 }
