@@ -10,7 +10,8 @@ import {
     Dropdown,
     Avatar,
     Progress,
-    List
+    List,
+    message
 } from 'antd'
 import {
     DesktopOutlined,
@@ -127,18 +128,28 @@ class App extends Component {
     async ShowModal() {
         this.props.getSongsInfo({ type: 'songsInfo', value: this.props.getSongId() })
         const { lrc, tlyric } = await store.getState().songsInfo
-        let [englist, chinese] = [lrc.lyric.split('\n'), tlyric.lyric.split('\n')]
-        englist = englist.map((item, index) => {
-            const params = new Object()
-            const lyric = item.split(']')
-            Object.assign(params, {
-                timer: lyric[0].slice(1),
-                lyric: lyric[1],
-                uid: parseInt(Math.random() * index * 100)
+        try {
+            debugger
+
+            if (!lrc && !lrc.length) {
+                throw ('请先搜索歌曲')
+            }
+            let [englist, chinese] = [lrc.lyric.split('\n'), tlyric.lyric.split('\n')]
+            englist = englist.map((item, index) => {
+                const params = new Object()
+                const lyric = item.split(']')
+                Object.assign(params, {
+                    timer: lyric[0].slice(1),
+                    lyric: lyric[1],
+                    uid: parseInt(Math.random() * index * 100)
+                })
+                return params
             })
-            return params
-        })
-        this.setState(() => ({ englist, showModal: true }))
+            this.setState(() => ({ englist, showModal: true }))
+        } catch (e) {
+            message.error(e)
+        }
+
     }
     handleOk = () => {
         this.handleCancel()
