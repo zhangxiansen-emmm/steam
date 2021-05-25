@@ -36,6 +36,13 @@ module.exports = {
           "^/media/": ""
         },
         changeOrigin: true
+      },
+      '/tel/': {
+        target: 'https://tcc.taobao.com/',
+        pathRewrite: {
+          "^/media/": ""
+        },
+        changeOrigin: true
       }
     },
     historyApiFallback: true

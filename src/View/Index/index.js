@@ -38,6 +38,7 @@ const { Item } = Menu
 import AsyncComponent from '@Components/AsyncComponent'
 import Modal from '@Components/Modal'
 import store from '../../redux/store'
+import Audio from './Components/Audio'
 
 class App extends Component {
     constructor(props) {
@@ -76,7 +77,27 @@ class App extends Component {
             // console.log(this.refs.audio.play())
         }
     }
-    UNSAFE_componentDidMount() {
+    componentDidMount() {
+        console.log(this.props.state);
+        let arr = [5, 6, 7, 8, 9]
+
+        function forof(arr, cb) {
+            let iterator = arr[Symbol.iterator]()
+            let result = iterator.next()
+            while (!result.done) {
+                cb(result.value)
+                result = iterator.next()
+                console.log(result);
+            }
+        }
+
+        forof(arr, function (item) {
+            console.log(item)
+        })
+
+        // for of 迭代器 含有next的方法就算是迭代器    while 去判断当前的方法done是否可以继续迭代 
+
+
 
         // const params = {}
         // Ajax.post('users/menu', params).then(res => { })
@@ -129,8 +150,6 @@ class App extends Component {
         this.props.getSongsInfo({ type: 'songsInfo', value: this.props.getSongId() })
         const { lrc, tlyric } = await store.getState().songsInfo
         try {
-            debugger
-
             if (!lrc && !lrc.length) {
                 throw ('请先搜索歌曲')
             }
@@ -141,7 +160,7 @@ class App extends Component {
                 Object.assign(params, {
                     timer: lyric[0].slice(1),
                     lyric: lyric[1],
-                    uid: parseInt(Math.random() * index * 100)
+                    uid: index
                 })
                 return params
             })
@@ -149,7 +168,12 @@ class App extends Component {
         } catch (e) {
             message.error(e)
         }
-
+        // style={{ top }}
+        let height = document.querySelector('.React-Modal-Body').clientHeight
+        console.log(height, 'height');
+        this.setState({
+            top: parseInt(height / 2)
+        })
     }
     handleOk = () => {
         this.handleCancel()
@@ -159,6 +183,7 @@ class App extends Component {
             visible: false
         })
     }
+
     subMenuItem() {
         // https://www.baidu.com/link?url=KL7WoERnaXkySyH9iGM2IJLQG22JTOZPRX8KFvn5iCzXU8IKp4N8REe4bjJ66p_OJIBbtZzrFFQ3i-DzG5X537O6AZPQpzfiITDnRThkCQp8otQK91iHmCMfoJo1u-4pvXYmWSY4flaOQYz-2VbVLNjOBl21PyNpHMnVQ8HkNHXuJgb6vsNaanH1jB1e3OHXOvTDhMZgikfDquqHfinq6ti0jaNyVQPq0HOktChHjbOON0mZtfQulUOhwDlGvm-RsVXAW57iWhV28w-F5BjuNyhMdFIJ6SBBcAFlHi3UG7pD87oMaaJSEk5mCirUwPXLzBJBXa7w5gmwg02__r3mc4Ql9mOum5hRNT_5E-dtHQ4Xd7S5lvg55Xb_Seu6m8d7DcCq_c90SZRNaliq3bZFQq0A_7CiFFXrwmxO4u3jYqySlYkFTLOgbTYnNQWo-UPOuiSD2rgx-ijsLy1FoqKp5RU_q05R44JeAqY3-5MjPh7llc4ilA_WK751pvSJCFcJ7k43RuCnqjTd-tKxLJjDGsgTtfDK4dZ2RWD_mm1pjbve3npDp00ulqpOY1BmlWajmiVGnKIJ9q5WkOA-2okbPzfte5zZufYJJUUduW9_voW&timg=&click_t=1597652287135&s_info=1349_625&wd=&eqid=e90a060c0000080a000000035f3a3d35
         return this.state.menu.map((item) => (
@@ -195,8 +220,9 @@ class App extends Component {
             showModal: false
         })
     }
+
     render() {
-        const playdUrl = store.getState().playMusicUrl
+
         const menu = () => {
             const whowClick = (e) => {
                 switch (true) {
@@ -221,8 +247,9 @@ class App extends Component {
             )
         }
         const { routes, ele } = this.props
-        const { currentPath, englist } = this.state
+        const { currentPath, englist, top } = this.state
         const { clickMenu } = this.props.state
+
         return (
             <Fragment>
                 <Layout className="container">
@@ -296,24 +323,18 @@ class App extends Component {
                             >
                                 showModal
                   </Button>
-                            <audio
-                                // preload="auto"
-                                ref="audio"
-                                src={playdUrl}
-                                // play={this.state.play}
-                                autoPlay={true}
-                                controls
-                                style={{ display: "block", width: '100%', height: 100 }}
-                            ></audio>
+                            <Audio />
                         </Content>
                     </Layout>
                 </Layout>
 
-                <Modal visible={this.state.showModal} drag footer={null} onCencel={this.modalCencel} >
-                    {englist.map(item =>
-                    (<Row type='flex' justify='center' align='middle' key={item.uid}>
-                        <Col> {item.lyric} </Col>
-                    </Row>))}
+                <Modal visible={this.state.showModal} drag footer={null} onCencel={this.modalCencel}>
+                    <div className='lycWrapper' style={{ top }}>
+                        {englist.map((item) =>
+                        (<Row type='flex' justify='center' align='middle' key={item.uid}>
+                            <Col> {item.lyric} </Col>
+                        </Row>))}
+                    </div>
                 </Modal>
             </Fragment>
         );

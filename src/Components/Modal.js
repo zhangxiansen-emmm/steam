@@ -78,8 +78,7 @@ class Modal extends Component {
                     </div>
                     <div className='React-Modal-Body'>
                         {props.children}
-                                    body
-                                </div>
+                    </div>
                     { props.footer === undefined || props.footer ? <div className='React-Modal-Footer'>
                         <Button onClick={this.onHideModal.bind(this)}>返回</Button>
                     </div> : null}

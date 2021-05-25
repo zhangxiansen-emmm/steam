@@ -1,19 +1,26 @@
-.container{
+.container {
+  height: 100%;
+}
+.Header {
+  background: #91d5ff;
+  position: relative;
+  .radius {
+    border-radius: 32px 0 0 32px;
+  }
+  .buttonRadius {
+    border-radius: 0 32px 32px 0;
+  }
+}
+.Header.Fixed {
+  position: fixed;
+  top: 0;
+  width: calc(100% - 200px);
+  z-index: 10;
+}
+.lycWrapper {
     height: 100%;
-}
-.Header{
-    background: #91d5ff;
-    position: relative;
-    .radius{
-        border-radius: 32px  0 0 32px;
-    }
-    .buttonRadius{
-         border-radius: 0 32px 32px 0;
-    }
-}
-.Header.Fixed{
-    position: fixed;
-    top: 0;
-    width: calc(100% - 200px);
-    z-index: 10;
+    width: 100%;
+    position: absolute;
+    // top: 50%;
+    // transform: translateY(-50%);
 }

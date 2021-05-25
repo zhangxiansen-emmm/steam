@@ -7,7 +7,6 @@ const Ajax = axios.create({
 })
 
 Ajax.interceptors.request.use((config) => {
-  console.log(config)
   const _t = new Date() / 1000
   config.headers['_t'] = _t
   config.headers['token'] = getCookie('token')

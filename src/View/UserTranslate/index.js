@@ -5,7 +5,6 @@ import { PlayCircleOutlined } from '@ant-design/icons'
 import getAudio from '@getAudio'
 import './index.less'
 import store from "../../redux/store";
-console.log(store);
 export default (props) => {
     const dispatch = useDispatch();
     const AudioData = useSelector(state => state.AudioData)
