@@ -9,7 +9,7 @@ const proxyAudio = axios.create({
 proxyAudio.interceptors.request.use((config) => {
     console.log(config)
     const _t = new Date() / 1000
-    config.headers['_t'] = _t
+    config.headers['timestamp'] = parseInt(_t)
     config.headers['token'] = getCookie('token')
     return config
 })

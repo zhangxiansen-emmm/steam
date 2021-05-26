@@ -78,22 +78,22 @@ class App extends Component {
         }
     }
     componentDidMount() {
-        console.log(this.props.state);
-        let arr = [5, 6, 7, 8, 9]
+        // console.log(this.props.state);
+        // let arr = [5, 6, 7, 8, 9]
 
-        function forof(arr, cb) {
-            let iterator = arr[Symbol.iterator]()
-            let result = iterator.next()
-            while (!result.done) {
-                cb(result.value)
-                result = iterator.next()
-                console.log(result);
-            }
-        }
+        // function forof(arr, cb) {
+        //     let iterator = arr[Symbol.iterator]()
+        //     let result = iterator.next()
+        //     while (!result.done) {
+        //         cb(result.value)
+        //         result = iterator.next()
+        //         console.log(result);
+        //     }
+        // }
 
-        forof(arr, function (item) {
-            console.log(item)
-        })
+        // forof(arr, function (item) {
+        //     console.log(item)
+        // })
 
         // for of 迭代器 含有next的方法就算是迭代器    while 去判断当前的方法done是否可以继续迭代 
 
@@ -253,7 +253,7 @@ class App extends Component {
         return (
             <Fragment>
                 <Layout className="container">
-                    <Sider
+                    {/* <Sider
                         style={{ background: "#fff" }}
                         collapsible
                         collapsed={this.state.collapsed}
@@ -265,7 +265,7 @@ class App extends Component {
                         >
                             {this.subMenuItem()}
                         </Menu>
-                    </Sider>
+                    </Sider> */}
                     <Layout onScroll={this.ScorllHeader.bind(this)}>
                         <div className="Header" ref="Header">
                             <Row type="flex" align="middle" justify="end">
@@ -323,7 +323,7 @@ class App extends Component {
                             >
                                 showModal
                   </Button>
-                            <Audio />
+                            <Audio {...this.props}/>
                         </Content>
                     </Layout>
                 </Layout>
